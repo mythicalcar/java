@@ -64,10 +64,6 @@ public class Database {
         }
     }
 
-    public void saveNotes(String notes, String name) {
-        col.updateOne(Filters.eq("Name", name), Updates.set("Notes", notes));
-    }
-
     public Document getUser(String name) {
         retrievable.put("Name", name);
         cursor = col.find(retrievable).iterator();
