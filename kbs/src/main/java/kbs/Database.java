@@ -9,7 +9,7 @@ import com.mongodb.client.model.Updates;
 //Wh3VKQTXN6jobpC0
 public class Database {
     MongoClient client = MongoClients.create(
-            "mongodb+srv://henk:Wh3VKQTXN6jobpC0@kbs.teqpcjy.mongodb.net/?retryWrites=true&w=majority");
+            "mongodb+srv://<pastenaameenwachtwoordhier>@kbs.teqpcjy.mongodb.net/?retryWrites=true&w=majority");
     MongoDatabase db = client.getDatabase("Users");
     MongoCollection<Document> col = db.getCollection("accounts");
     BasicDBObject retrievable = new BasicDBObject();
