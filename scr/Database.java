@@ -15,11 +15,10 @@ public class Database {
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
             ResultSet city = statement.executeQuery("select CityID, CityName from cities;");
-            
+
             while (city.next()){
                 System.out.println(city.getInt(1) + " " + city.getString(2));
             }
-
             connection.close();
         } catch (ClassNotFoundException e) {
             System.out.println("e");
