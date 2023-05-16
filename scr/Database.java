@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
 
-    String url = "jdbc:mysql://localhost:3306/nerd";
+    String url = "jdbc:mysql://localhost:3306/nerdygadgets";
     String username = "root";
     String password = "";
 
@@ -13,7 +13,7 @@ public class Database {
 
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-        ResultSet city = statement.executeQuery("Select * from user where UserID =" + index + ";");
+        ResultSet city = statement.executeQuery("Select * from cities;");
 
         while (city.next()){
             System.out.println(city.getInt(1) + " " + city.getString(2));
