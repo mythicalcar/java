@@ -44,7 +44,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.DB">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="DB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="scr.DB" />
       <module name="java" />
@@ -59,10 +59,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="scr.Main" />
+      <module name="java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DB" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Database" />
+        <item itemvalue="Application.DB" />
       </list>
     </recent_temporary>
   </component>

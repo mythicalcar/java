@@ -8,12 +8,12 @@ public class Database {
     String username = "root";
     String password = "";
 
-    public void selectNames() throws ClassNotFoundException, SQLException {
+    public void selectNames(int index) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-        ResultSet city = statement.executeQuery("Select * from user;");
+        ResultSet city = statement.executeQuery("Select * from user where UserID =" + index + ";");
 
         while (city.next()){
             System.out.println(city.getInt(1) + " " + city.getString(2));

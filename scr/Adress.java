@@ -23,7 +23,6 @@ public class Adress {
         this.postcode = postcode;
     }
 
-
     public void setPostcode(String postcode) {
         if (postcode.matches("\\d{4}[A-Za-z]{2}")) {
             this.postcode = postcode;
@@ -31,4 +30,5 @@ public class Adress {
             System.out.println("ongeldige postcode");
         }
     }
+
 }
