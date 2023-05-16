@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="" />
+    <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/google_maps_services.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scr/Distances.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/java.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,13 +39,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "openjdk-19",
-    "last_opened_file_path": "C:/Users/adam9/Downloads/mysql-connector-java-8.0.28.jar",
+    "last_opened_file_path": "C:/Users/adam9/Downloads/slf4j-simple-2.0.6.jar",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -46,6 +61,19 @@
   }
 }]]></component>
   <component name="RunManager" selected="Application.Main">
+    <configuration name="Algo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="scr.Algo" />
+      <module name="java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="scr.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="scr.DB" />
       <module name="java" />
@@ -70,6 +98,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Algo" />
         <item itemvalue="Application.Database" />
         <item itemvalue="Application.DB" />
       </list>
@@ -84,6 +113,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681833450506</updated>
       <workItem from="1681833451717" duration="22000" />
+      <workItem from="1684271480750" duration="2257000" />
     </task>
     <servers />
   </component>
