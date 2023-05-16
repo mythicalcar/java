@@ -11,7 +11,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 
 public class Distances {
-    private final String apiKey = "AIzaSyDLqeDXpQB6vLjO5sh7oJrp0twa8qyJXIE";
+    private final String apiKey = "api key";
 
 
 

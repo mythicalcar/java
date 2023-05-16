@@ -17,8 +17,8 @@ public class Main {
     public static void main(String[] args) {
         Distances distanceCalculator = new Distances();
 
-        String sourcePlace = "Marco Polostraat 291A";
-        String destinationPlace = "Almere";
+        String sourcePlace = "Egypt banha";
+        String destinationPlace = "Marroko tetouan";
 
         distanceCalculator.printDistance(sourcePlace,destinationPlace);
     }
