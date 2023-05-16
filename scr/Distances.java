@@ -11,7 +11,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 
 public class Distances {
-    private String apiKey = "AIzaSyDLqeDXpQB6vLjO5sh7oJrp0twa8qyJXIE";
+    private final String apiKey = "AIzaSyDLqeDXpQB6vLjO5sh7oJrp0twa8qyJXIE";
 
 
 
@@ -42,6 +42,15 @@ public class Distances {
         } catch (Exception e) {
             e.printStackTrace();
             return -1; // Return a negative value to indicate an error
+        }
+    }
+
+    public void printDistance(String sourcePlace, String destinationPlace){
+        double distance = calculateDistance(sourcePlace, destinationPlace);
+        if (distance >= 0) {
+            System.out.println("Distance: " + distance + " km");
+        } else {
+            System.out.println("An error occurred while calculating the distance.");
         }
     }
 }

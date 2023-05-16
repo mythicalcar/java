@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/google_maps_services.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scr/Distances.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/java.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Distances.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Distances.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681833450506</updated>
       <workItem from="1681833451717" duration="22000" />
-      <workItem from="1684271480750" duration="2257000" />
+      <workItem from="1684271480750" duration="2628000" />
     </task>
     <servers />
   </component>
