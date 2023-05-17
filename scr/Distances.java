@@ -14,16 +14,15 @@ public class Distances {
     private final String apiKey = "api key";
 
 
-
-    public double calculateDistance(String sourcePlace, String destinationPlace) {
+    public double calculateDistance(Adress adress1, Adress adress2) {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
                 .build();
 
         try {
             DistanceMatrixApiRequest request = DistanceMatrixApi.newRequest(context)
-                    .origins(sourcePlace)
-                    .destinations(destinationPlace);
+                    .origins(String.valueOf(adress1))
+                    .destinations(String.valueOf(adress2));
 
             DistanceMatrix matrix = request.await();
 
@@ -45,7 +44,7 @@ public class Distances {
         }
     }
 
-    public void printDistance(String sourcePlace, String destinationPlace){
+    public void printDistance(Adress sourcePlace, Adress destinationPlace){
         double distance = calculateDistance(sourcePlace, destinationPlace);
         if (distance >= 0) {
             System.out.println("Distance: " + distance + " km");

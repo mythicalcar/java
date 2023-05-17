@@ -16,8 +16,7 @@ public class Database {
         ResultSet city = statement.executeQuery("Select * from cities;");
 
         while (city.next()){
-            System.out.println(city.getInt(1) + " " + city.getString(2));
-        }
+            System.out.println(city.getInt(1) + " " + city.getString(2));}
 
         connection.close();
     }

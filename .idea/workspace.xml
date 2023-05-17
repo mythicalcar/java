@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/out/production/java/scr/NearestNeighbour$DataPoint.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/java/scr/NearestNeighbour.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/java/scr/Orders.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scr/Orders.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Adress.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Adress.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Distances.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Distances.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/java/scr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Adress.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Adress.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Distances.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Distances.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/NearestNeighbour.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/NearestNeighbour.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,29 +44,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "openjdk-19",
-    "last_opened_file_path": "C:/Users/adam9/Downloads/slf4j-simple-2.0.6.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-19&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/adam9/Downloads/slf4j-simple-2.0.6.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Algo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="scr.Algo" />
@@ -115,5 +126,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
