@@ -1,4 +1,7 @@
 package kbs;
 
-public class ManagerPage {
+import javax.swing.*;
+
+public class ManagerPage extends JPanel {
+
 }

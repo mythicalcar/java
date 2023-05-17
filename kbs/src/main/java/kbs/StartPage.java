@@ -2,7 +2,6 @@ package kbs;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 
 public class StartPage extends JFrame {
     // Database db = new Database();
@@ -12,7 +11,7 @@ public class StartPage extends JFrame {
     JButton register = new JButton("Register");
     JButton login = new JButton("Login");
     RegisterPage registerPage = new RegisterPage(startPagePanel);
-    LoginPage loginPage = new LoginPage(this);
+    LoginPage_old loginPage = new LoginPage_old(this);
 
     StartPage() {
         registerPage.setVisible(false);
