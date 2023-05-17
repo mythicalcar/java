@@ -23,6 +23,7 @@ public class Main {
 //        System.out.println(sourcePlace);
         distanceCalculator.printDistance(sourcePlace,destinationPlace);
 
+        Orders orders = new Orders();
+        orders.nearestNeigbhour();
     }
 }
-

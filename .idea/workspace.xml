@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/java.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scr/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Orders.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +50,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.lookFeel",
