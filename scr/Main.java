@@ -15,13 +15,15 @@ public class Main {
 //
 //    }
 
-    public static void main(String[] args) {
-        Distances distanceCalculator = new Distances();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//        Distances distanceCalculator = new Distances();
+//
+//        Adress sourcePlace = new Adress("Amsterdam", "Marco Polostraat" , "200");
+//        Adress destinationPlace = new Adress("Almere", "Schuttersstraat", "14");
+////        System.out.println(sourcePlace);
+//        distanceCalculator.printDistance(sourcePlace,destinationPlace);
 
-        Adress sourcePlace = new Adress("Amsterdam", "Marco Polostraat" , "200");
-        Adress destinationPlace = new Adress("Almere", "Schuttersstraat", "14");
-//        System.out.println(sourcePlace);
-        distanceCalculator.printDistance(sourcePlace,destinationPlace);
+        Database.selectNames(7);
 
     }
 }

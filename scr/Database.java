@@ -4,19 +4,21 @@ import java.sql.*;
 
 public class Database {
 
-    String url = "jdbc:mysql://localhost:3306/nerdygadgets";
-    String username = "root";
-    String password = "";
+    static String url = "jdbc:mysql://localhost:3306/nerdy";
+    static String username = "root";
+    static String password = "";
 
-    public void selectNames(int index) throws ClassNotFoundException, SQLException {
+    public static void selectNames(int index) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         Connection connection = DriverManager.getConnection(url, username, password);
         Statement statement = connection.createStatement();
-        ResultSet city = statement.executeQuery("Select * from cities;");
+        ResultSet city = statement.executeQuery("Select Name, Surname\n" +
+                "From Users\n" +
+                "Where ID =" + index + ";");
 
         while (city.next()){
-            System.out.println(city.getInt(1) + " " + city.getString(2));}
+            System.out.println(city.getString(1) + " " + city.getString(2));}
 
         connection.close();
     }
