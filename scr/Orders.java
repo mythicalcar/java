@@ -11,10 +11,10 @@ public class Orders {
     public Orders() {
         this.adresses = new ArrayList<>();
         adresses.add(warehouse);
-        adresses.add(new Adress("Amsterdam", "Prinsengracht", "14"));
-        adresses.add(new Adress("Amsterdam", "Pampuslaan", "4"));
-        adresses.add(new Adress("Beesd", "Stationsweg", "3"));
-        adresses.add(new Adress("Millderburg", "Oosterkerkplein", "1"));
+    }
+
+    public void addAdress(Adress adress) {
+        adresses.add(adress);
     }
 
 
