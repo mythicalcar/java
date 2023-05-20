@@ -11,7 +11,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 
 public class Distances {
-    private final String apiKey = "api key";
+    private final String apiKey = "";
 
 
     public double calculateDistance(Adress adress1, Adress adress2) {

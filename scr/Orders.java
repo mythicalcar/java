@@ -42,6 +42,8 @@ public class Orders {
             } catch (IndexOutOfBoundsException exception) {
             }
         }
+        //add the warehouse to the route as the last point
+        route.add(warehouse);
         System.out.println(route);
         return route;
     }
