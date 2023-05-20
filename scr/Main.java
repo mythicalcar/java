@@ -16,15 +16,16 @@ public class Main {
 //    }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-//        Distances distanceCalculator = new Distances();
-//
-//        Adress sourcePlace = new Adress("Amsterdam", "Marco Polostraat" , "200");
-//        Adress destinationPlace = new Adress("Almere", "Schuttersstraat", "14");
-////        System.out.println(sourcePlace);
-//        distanceCalculator.printDistance(sourcePlace,destinationPlace);
+        Distances distanceCalculator = new Distances();
 
-        Database.selectNames(7);
+        Adress sourcePlace = new Adress("Amsterdam", "Marco Polostraat" , "200");
+        Adress destinationPlace = new Adress("Almere", "Schuttersstraat", "14");
+//        System.out.println(sourcePlace);
+        distanceCalculator.printDistance(sourcePlace,destinationPlace);
 
+//        Database.selectNames(7);
+        Orders aa = new Orders();
+        System.out.println(aa.nearestNeighbor());
     }
 }
 

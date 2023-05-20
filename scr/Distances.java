@@ -11,10 +11,10 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.model.DistanceMatrix;
 
 public class Distances {
-    private final String apiKey = "api key";
+    private static final String apiKey = "";
 
 
-    public double calculateDistance(Adress adress1, Adress adress2) {
+    public static double calculateDistance(Adress adress1, Adress adress2) {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
                 .build();
