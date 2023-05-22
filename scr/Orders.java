@@ -10,7 +10,6 @@ public class Orders {
 
     public Orders() {
         this.adresses = new ArrayList<>();
-        adresses.add(warehouse);
     }
 
     public void addAdress(Adress adress) {
@@ -42,7 +41,9 @@ public class Orders {
             currentAddress = nearestAddress;
             unvisitedAddresses.remove(nearestAddress);
         }
+        route.remove(warehouse);
 
         return route;
     }
+
 }

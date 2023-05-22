@@ -12,8 +12,7 @@ import com.google.maps.model.DistanceMatrix;
 
 public class Distances {
     private static final String apiKey = "api key";
-
-
+    
     public static double calculateDistance(Adress adress1, Adress adress2) {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
@@ -35,7 +34,7 @@ public class Distances {
 
                 return distanceInKilometers;
             } else {
-                System.out.println("Unable to calculate distance. Status: " + element.status);
+                System.out.println("Err Status: " + element.status);
                 return -1; // Return a negative value to indicate an error
             }
         } catch (Exception e) {
@@ -47,9 +46,9 @@ public class Distances {
     public void printDistance(Adress sourcePlace, Adress destinationPlace){
         double distance = calculateDistance(sourcePlace, destinationPlace);
         if (distance >= 0) {
-            System.out.println("Distance: " + distance + " km");
+            System.out.println("Afstand: " + distance + " km");
         } else {
-            System.out.println("An error occurred while calculating the distance.");
+            System.out.println("Er is een fout opgetreden bij het berekenen van je afstand.");
         }
     }
 }
