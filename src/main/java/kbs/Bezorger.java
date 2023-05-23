@@ -1,2 +1,8 @@
-package kbs;public class Bezorger {
+package kbs;
+
+public class Bezorger {
+    private 
+    public Bezorger(){
+
+    }
 }

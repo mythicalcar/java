@@ -9,8 +9,12 @@ import java.util.ArrayList;
 public class RouteMenuPage extends JPanel implements ActionListener {
     private JButton backButton;
     private ApplicationFrame applicationFrame;
-    private ArrayList<String> bezorgers = new ArrayList<String>();
+    private ArrayList<String> bezorgers;
     public RouteMenuPage(ApplicationFrame applicationFrame){
+        //hardcoded bezorgers voor nu
+        bezorgers = new ArrayList<String>();
+        //bezorgers.add();
+
         this.applicationFrame = applicationFrame;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();

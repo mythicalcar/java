@@ -4,20 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2b3d310-bc90-4d7a-845e-ef6d78d911e8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kbs/BezorgerMenuPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kbs/RouteMenuPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kbs/ApplicationFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kbs/ApplicationFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kbs/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kbs/LoginPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kbs/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kbs/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kbs/ManagerPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kbs/ManagerPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kbs/ApplicationFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kbs/ApplicationFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kbs/LoginPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kbs/LoginPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kbs/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kbs/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kbs/ManagerPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kbs/ManagerPage.class" afterDir="false" />
+    <list default="true" id="9aaa501b-da21-4750-bf02-33dc2e1e8ef4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kbs/Bezorger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kbs/RouteMenuPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kbs/RouteMenuPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/ApplicationFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/BezorgerMenuPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/Database.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/LoginPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/LoginPage_old.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/ManagerPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/RegisterPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kbs/StartPage.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2Q4d7FWjQxME22vHiAcrkT4WplN" />
+  <component name="ProjectId" id="2QBlaxJjc8zR4Rhfa2lOK2PUCl7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,13 +59,8 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="kbs" />
-    </key>
-  </component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="kbs.Main" />
       <module name="kbs" />
       <extension name="coverage">
@@ -79,20 +73,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e2b3d310-bc90-4d7a-845e-ef6d78d911e8" name="Changes" comment="" />
-      <created>1684616619884</created>
+      <changelist id="9aaa501b-da21-4750-bf02-33dc2e1e8ef4" name="Changes" comment="" />
+      <created>1684834923464</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1684616619884</updated>
+      <updated>1684834923464</updated>
     </task>
     <servers />
   </component>
