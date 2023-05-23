@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/production/java/scr/NearestNeighbour$DataPoint.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/java/scr/NearestNeighbour.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/java/scr/Orders.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scr/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Adress.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Adress.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Distances.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Distances.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/java/scr/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/java/scr/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/Adress.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Adress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/Distances.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Distances.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scr/NearestNeighbour.java" beforeDir="false" afterPath="$PROJECT_DIR$/scr/NearestNeighbour.java" afterDir="false" />
-    </list>
+    <list default="true" id="711ef111-89f2-46d8-bdcf-0b60181779b9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
