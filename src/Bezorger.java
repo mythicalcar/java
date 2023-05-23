@@ -1,8 +1,8 @@
-package kbs;
+package src;
 
 public class Bezorger {
-    private 
-    public Bezorger(){
-
-    }
+//    private
+//    public Bezorger(){
+//
+//    }
 }

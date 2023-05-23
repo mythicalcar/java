@@ -1,8 +1,7 @@
-package kbs;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 
 public class RegisterPage extends JPanel {
     Database db = new Database();

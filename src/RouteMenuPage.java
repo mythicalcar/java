@@ -1,4 +1,4 @@
-package kbs;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,11 +26,11 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         constraints.gridy = 2;
         add(backButton);
 
-        JList bezorgerList = new JList(bezorgersro);
-        backButton.addActionListener(this);
-        constraints.gridx = 2;
-        constraints.gridy = 2;
-        add(backButton);
+//        JList bezorgerList = new JList(bezorgersro);
+//        backButton.addActionListener(this);
+//        constraints.gridx = 2;
+//        constraints.gridy = 2;
+//        add(backButton);
     }
 
     @Override

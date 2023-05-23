@@ -1,4 +1,4 @@
-package kbs;
+package src;
 
 import java.util.Iterator;
 import org.bson.Document;
