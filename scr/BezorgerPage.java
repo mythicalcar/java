@@ -40,7 +40,7 @@ public class BezorgerPage extends JFrame {
         this.getContentPane().setBackground(new Color(180, 180, 180));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setPreferredSize(new Dimension(1000, 800));
 
         // Create a wrapper panel for googleMapView
