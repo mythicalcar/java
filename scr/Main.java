@@ -12,13 +12,13 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Orders aa = new Orders();
-        aa.addAdress(new Adress("Middelburg", "Oosterkerkplein", "1"));
-        aa.addAdress(new Adress("Amsterdam", "Prinsengracht", "14"));
-        aa.addAdress(new Adress("Amsterdam", "Pampuslaan", "4"));
-        aa.addAdress(new Adress("Beesd", "Stationsweg", "3"));
 //        MapsPage.openGoogleMapsRoute(aa.nearestNeighbor());
+        aa.addAdress(new Adress("Amsterdam", "Soerabajastraat", "4", "1095GP" ));
+        aa.addAdress(new Adress("Almere", "Audioweg", "2", "1322AV" ));
+        aa.addAdress(new Adress("Almere", "Televisieweg", "2", "1322AC"));
+//        System.out.println(aa.sortAddressesByPostcode());
         System.out.println(aa.nearestNeighbor());
-//        LoginPage loginPage = new LoginPage();
+        LoginPage loginPage = new LoginPage();
 
     }
 }
