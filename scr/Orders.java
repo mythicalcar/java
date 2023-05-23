@@ -41,7 +41,7 @@ public class Orders {
             currentAddress = nearestAddress;
             unvisitedAddresses.remove(nearestAddress);
         }
-        route.add(warehouse);
+        route.remove(warehouse);
         return route;
     }
 
