@@ -5,6 +5,7 @@ import com.mongodb.client.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
+import java.util.ArrayList;
 
 import java.util.Iterator;
 
@@ -14,11 +15,13 @@ public class Database {
     MongoDatabase db = client.getDatabase("Users");
     MongoCollection<Document> bezorgerCol = db.getCollection("bezorgers");
     MongoCollection<Document> managerCol = db.getCollection("managers");
+    MongoCollection<Document> bestellingenCol = db.getCollection("Bestellingen");
     BasicDBObject retrievable = new BasicDBObject();
     FindIterable<Document> iterDoc;
     Iterator<Document> it;
     MongoCursor<Document> bCursor;
     MongoCursor<Document> mCursor;
+    MongoCursor<Document> oCursor;
 
     Database() {
         // eh
@@ -78,5 +81,20 @@ public class Database {
         Document user = bCursor.next();
 
         return user;
+    }
+
+    public ArrayList<Adress> selectAdress() {
+        Orders e = new Orders();
+
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        while (oCursor.hasNext()) {
+            Document bestelling = oCursor.next();
+            //System.out.println(bestelling);
+            if (bestelling.get("Status").toString().equals("0")) {
+                e.addAdress(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()));
+            }
+        }
+        e.sortAddressesByPostcode();
+        return e.getAdresses();
     }
 }
