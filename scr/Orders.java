@@ -31,6 +31,10 @@ public class Orders {
     }
 
 
+    public ArrayList<Adress> getAdresses() {
+        return adresses;
+    }
+
     public ArrayList<Adress> nearestNeighbor() {
         ArrayList<Adress> route = new ArrayList<>();
         Adress currentAddress = warehouse;
@@ -60,5 +64,6 @@ public class Orders {
     }
 
 
-
+    public void addAdress(String plaats, String straatnaam, String huisnummer, String postcode) {
+    }
 }
