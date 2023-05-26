@@ -1,0 +1,1 @@
+Combine layouts! Use BorderLayout to put the welcome message at the top (setPreferredSize) and use GridBagLayout for the panel filling the rest of the app.
