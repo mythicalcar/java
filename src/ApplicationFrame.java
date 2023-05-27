@@ -1,6 +1,7 @@
 package src;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 
 public class ApplicationFrame extends JFrame {
@@ -14,6 +15,7 @@ public class ApplicationFrame extends JFrame {
         setLocationRelativeTo(null);
         cardLayout = new CardLayout();
         setLayout(cardLayout);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         add(managerPage, "managerPage");
         add(bezorgerMenuPage, "bezorgerMenuPage");
