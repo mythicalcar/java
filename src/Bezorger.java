@@ -1,8 +1,8 @@
 package src;
 
 public class Bezorger {
-//    private
-//    public Bezorger(){
-//
-//    }
+    public String name;
+    public Bezorger(String name){
+        this.name = name;
+    }
 }

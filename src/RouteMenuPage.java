@@ -12,8 +12,12 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     private JPanel centerPanel;
     private JPanel lineStartPanel;
     private JLabel menuTitleLabel;
-    private JScrollPane bezorgerScrollPane;
+    private JScrollPane bezorgersScrollPane;
     private JButton backButton;
+    private JList bezorgerList;
+    private ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
+    private ArrayList<JButton> bezorgersButtons = new ArrayList<JButton>();
+    private JButton[] selectedBezorgerButtons;
     public RouteMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
@@ -32,14 +36,24 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        bezorgerScrollPane = new JScrollPane();
+        updateBezorgers();
+        for (Bezorger bezorger:bezorgers) {
+            JButton bezorgerButton = new JButton(bezorger.name);
+            bezorgersButtons.add(bezorgerButton);
+        }
+        bezorgersScrollPane = new JScrollPane(bezorgerList);
         //Get available bezorgers. For every available bezorger, put a button for them into the scrollpane.
 
         backButton = new JButton("Terug");
         backButton.addActionListener(this);
 
+        //add buttons to bezorgersscrollpane
+        for(int i = 0; i < bezorgersButtons.size(); i++){
+            bezorgersScrollPane.add(bezorgersButtons.get(i));
+        }
+
         //add components to linestartpanel
-        lineStartPanel.add(bezorgerScrollPane);
+        lineStartPanel.add(bezorgersScrollPane, BorderLayout.PAGE_START);
 
         //add components to centerpanel
 
@@ -51,6 +65,11 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         this.add(lineStartPanel, BorderLayout.LINE_START);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(pageEndPanel, BorderLayout.PAGE_END);
+    }
+
+    private void updateBezorgers(){
+        //bezorgers ophalen vanuit database die een status van beschikbaar hebben
+        bezorgers.add(new Bezorger("Bezorger 1"));
     }
 
     private GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight){
@@ -66,6 +85,10 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
             applicationFrame.showManagerPage();
+        }
+        for (JButton bezorgerButton:bezorgersButtons) {
+            //if (bezorgerButton.getBackground())
+            bezorgerButton.setBackground(Color.gray);
         }
     }
 }
