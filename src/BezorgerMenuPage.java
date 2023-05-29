@@ -7,16 +7,20 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class BezorgerMenuPage extends JPanel implements ActionListener {
-    private JButton backButton;
+
     private ApplicationFrame applicationFrame;
-    private JPanel gridBagPanel;
+    private JPanel centerPanel;
     private JLabel menuTitleLabel;
-    private JTable bezorgerJTable;
-    private JScrollPane bezorgerScrollPane;
-    private String[] columnNames = {
+    private JTable bezorgersJTable;
+    private JScrollPane bezorgersScrollPane;
+    private String[] bezorgersJTableColumns = {
+            //id?
             "Naam",
-            "idk",
-    };
+            "Locatie",
+            "Status"};
+    private Object[][] bezorgers;
+    private JButton backButton;
+    private JButton addBezorgerButton;
     public BezorgerMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
@@ -26,52 +30,38 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         menuTitleLabel.setHorizontalAlignment(JLabel.CENTER);
         menuTitleLabel.setPreferredSize(new Dimension(200, 100));
 
-        gridBagPanel = new JPanel(new GridBagLayout());
+        centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
-        String[] bezorgerJTableColumns = {
-                //id?
-                "Naam",
-                "Locatie",
-                "Status"};
-        Object[][] bezorgers = getBezorgers();
-        bezorgerJTable = new JTable(bezorgers, bezorgerJTableColumns);
+        JPanel pageEndPanel = new JPanel();
+        pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        TextArea bezorgerTextArea = new TextArea();
-        bezorgerScrollPane = new JScrollPane(bezorgerJTable);
-        GridBagConstraints bezorgerScrollPanec = createGBC(1, 0,3, 3);
-        bezorgerScrollPanec.anchor = GridBagConstraints.CENTER;
-        bezorgerScrollPanec.fill = GridBagConstraints.HORIZONTAL;
+        bezorgers = getBezorgers();
+        bezorgersJTable = new JTable(bezorgers, bezorgersJTableColumns);
+        Dimension bezorgerTableSize = bezorgersJTable.getPreferredSize();
+        bezorgersJTable.setPreferredScrollableViewportSize(bezorgerTableSize);
+        bezorgersJTable.setCellSelectionEnabled(false);
 
-        Component strut1 = Box.createHorizontalStrut(1);
-        GridBagConstraints strut1c = createGBC(0, 0, 1, 1);
+        bezorgersScrollPane = new JScrollPane(bezorgersJTable);
+        bezorgersScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        Component strut2 = Box.createHorizontalStrut(1);
-        GridBagConstraints strut2c = createGBC(4, 0, 1, 1);
-
-        Component strut3 = Box.createHorizontalStrut(1);
-        GridBagConstraints strut3c = createGBC(0, 1, 1, 1);
-
-        Component strut4 = Box.createHorizontalStrut(1);
-        GridBagConstraints strut4c = createGBC(4, 1, 1, 1);
-
+        addBezorgerButton = new JButton("Bezorger toevoegen");
+        addBezorgerButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
         backButton = new JButton("Terug");
         backButton.addActionListener(this);
-        GridBagConstraints backButtonc = createGBC(0, 3, 1, 1);
-        //backButtonc.insets = new Insets(0, 50, 50, 0);
-        backButtonc.anchor = GridBagConstraints.LAST_LINE_START;
 
-        //add components to gridbagpanel
-        gridBagPanel.add(bezorgerScrollPane, bezorgerScrollPanec);
-        gridBagPanel.add(strut1, strut1c);
-        gridBagPanel.add(strut2, strut2c);
-        gridBagPanel.add(strut3, strut3c);
-        gridBagPanel.add(strut4, strut4c);
-        gridBagPanel.add(backButton, backButtonc);
+        //add components to centerpanel
+        centerPanel.add(bezorgersScrollPane);
+        centerPanel.add(addBezorgerButton);
+
+        //add components to pageendpanel
+        pageEndPanel.add(backButton);
 
         //add components to bezorgermenupage
         this.add(menuTitleLabel, BorderLayout.PAGE_START);
-        this.add(gridBagPanel, BorderLayout.CENTER);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(pageEndPanel, BorderLayout.PAGE_END);
     }
 
     private GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight){
@@ -86,7 +76,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
-            setVisible(false);
+            applicationFrame.showManagerPage();
         }
     }
 

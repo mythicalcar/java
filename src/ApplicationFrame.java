@@ -23,7 +23,7 @@ public class ApplicationFrame extends JFrame {
 
         cardLayout.show(this.getContentPane(), managerPage.getName());
 
-        setResizable(false);
+        //setResizable(false);
         setVisible(true);
     }
 

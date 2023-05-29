@@ -12,7 +12,7 @@ public class ManagerPage extends JPanel implements ActionListener {
     private ApplicationFrame applicationFrame;
     private JPanel gridBagPanel;
     private JLabel welcomeLabel;
-    private JLabel emptyBottomLabel;
+    private JPanel pageEndPanel;
     public ManagerPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
@@ -25,22 +25,22 @@ public class ManagerPage extends JPanel implements ActionListener {
         welcomeLabel.setHorizontalAlignment(JLabel.CENTER);
         welcomeLabel.setPreferredSize(new Dimension(200, 100));
 
-        emptyBottomLabel = new JLabel();
-        emptyBottomLabel.setPreferredSize(new Dimension(200, 100));
+        pageEndPanel = new JPanel();
+        pageEndPanel.setPreferredSize(new Dimension(200, 100));
 
         bezorgerMenuButton = new JButton("Bezorgers beheren");
         bezorgerMenuButton.addActionListener(this);
         GridBagConstraints bezorgerMenuButtonc = new GridBagConstraints();
-        bezorgerMenuButtonc.gridx = 1;
-        bezorgerMenuButtonc.gridy = 1;
+        bezorgerMenuButtonc.gridx = 0;
+        bezorgerMenuButtonc.gridy = 0;
         bezorgerMenuButtonc.gridwidth = 2;
         bezorgerMenuButtonc.gridheight = 1;
         bezorgerMenuButtonc.fill = GridBagConstraints.HORIZONTAL;
         routeMenuButton = new JButton("Routes beheren");
         routeMenuButton.addActionListener(this);
         GridBagConstraints routeMenuButtonc = new GridBagConstraints();
-        routeMenuButtonc.gridx = 1;
-        routeMenuButtonc.gridy = 2;
+        routeMenuButtonc.gridx = 0;
+        routeMenuButtonc.gridy = 1;
         routeMenuButtonc.gridwidth = 2;
         routeMenuButtonc.gridheight = 1;
         routeMenuButtonc.fill = GridBagConstraints.HORIZONTAL;
@@ -51,22 +51,7 @@ public class ManagerPage extends JPanel implements ActionListener {
         //add components to applicationframe
         this.add(welcomeLabel, BorderLayout.PAGE_START);
         this.add(gridBagPanel, BorderLayout.CENTER);
-        this.add(emptyBottomLabel, BorderLayout.PAGE_END);
-
-
-//        constraints = new GridBagConstraints();
-//        constraints.gridx = 0;
-//        constraints.gridy = 0;
-//        constraints.gridwidth = 4;
-//        constraints.gridheight = 1;
-        //constraints.fill = GridBagConstraints.HORIZONTAL;
-//        constraints.anchor = GridBagConstraints.PAGE_START;
-//        constraints.insets = new Insets(0, 0, 150, 0);
-//        add(welcomeLabel, constraints);
-
-
-
-
+        this.add(pageEndPanel, BorderLayout.PAGE_END);
     }
 
     @Override
