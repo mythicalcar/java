@@ -28,7 +28,7 @@ public class LoginPage extends JPanel {
             int validation = db.checkUserData(name, password);
             if (validation == 1) {
                 applicationFrame.setUserName(name);
-                //applicationFrame.showB;
+                applicationFrame.showBezorgerPage();
 
             } else if (validation == 2) {
                 applicationFrame.setUserName(name);

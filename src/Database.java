@@ -27,7 +27,7 @@ public class Database {
         // eh
     }
 
-    public Boolean createAccount(String name, String password) {
+    public Boolean createBezorgerAccount(String name, String password) {
         retrievable.put("Name", name);
         bCursor = bezorgerCol.find(retrievable).iterator();
 
@@ -46,7 +46,24 @@ public class Database {
             return true;
         }
     }
+    public Boolean createManagerAccount(String name, String password) {
+        retrievable.put("Name", name);
+        mCursor = managerCol.find(retrievable).iterator();
 
+        if (mCursor.hasNext()) {
+            return false;
+        } else {
+            String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+            String randomPassword = RandomStringUtils.random(15, characters);
+            String hashedPass = BCrypt.hashpw(randomPassword, BCrypt.gensalt(10));
+            Document document = new Document();
+            document.append("Name", name);
+            document.append("Password", hashedPass);
+            managerCol.insertOne(document);
+            System.out.println(randomPassword);
+            return true;
+        }
+    }
     public int checkUserData(String name, String password) {
         System.out.println(password);
         int returnVal = 0;
@@ -56,6 +73,7 @@ public class Database {
         if (bCursor.hasNext()) {
             Document user = bCursor.next();
             System.out.println();
+            //invalid salt version, passwords are currently plaintext
             if (BCrypt.checkpw(password, user.get("Password").toString())) {
                 returnVal = 1;
             }

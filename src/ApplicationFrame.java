@@ -9,7 +9,7 @@ public class ApplicationFrame extends JFrame {
     private BezorgerMenuPage bezorgerMenuPage = new BezorgerMenuPage(this);
     private RouteMenuPage routeMenuPage = new RouteMenuPage(this);
     private LoginPage loginPage = new LoginPage(this);
-    //private BezorgerPage bezorgerPageOld = new BezorgerPage_old(this);
+    private BezorgerPage bezorgerPage = new BezorgerPage(this);
     private CardLayout cardLayout;
     private String userName;
     ApplicationFrame(){
@@ -23,6 +23,7 @@ public class ApplicationFrame extends JFrame {
         add(managerPage, "managerPage");
         add(bezorgerMenuPage, "bezorgerMenuPage");
         add(routeMenuPage, "routeMenuPage");
+        add(bezorgerPage, "bezorgerPage");
 
         cardLayout.show(this.getContentPane(), loginPage.getName());
 
@@ -32,6 +33,7 @@ public class ApplicationFrame extends JFrame {
 
     public void showManagerPage() {
         this.cardLayout.show(this.getContentPane(), "managerPage");
+        managerPage.updateName(userName);
     }
     public void showBezorgerMenuPage() {
         this.cardLayout.show(this.getContentPane(), "bezorgerMenuPage");
@@ -39,8 +41,9 @@ public class ApplicationFrame extends JFrame {
     public void showRouteMenuPage() {
         this.cardLayout.show(this.getContentPane(), "routeMenuPage");
     }
-
-    public void showBezorgerPage() { this.cardLayout.show(this.getContentPane(), "bezorgerPage");}
+    public void showBezorgerPage() {
+        this.cardLayout.show(this.getContentPane(), "bezorgerPage");
+    }
 
     public static GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill){
         GridBagConstraints constraints = new GridBagConstraints();

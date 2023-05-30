@@ -24,7 +24,7 @@ public class RegisterPage extends JPanel {
         register.addActionListener(e -> {
             String name = userName.getText();
             String password = String.valueOf(userPass.getPassword());
-            Boolean created = db.createAccount(name, password);
+            Boolean created = db.createManagerAccount(name, password);
             if (created) {
                 this.setVisible(false);
                 startPage.setVisible(true);
