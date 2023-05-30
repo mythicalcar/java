@@ -6,7 +6,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.ArrayList;
-
 import java.util.Iterator;
 
 public class Database {
@@ -116,5 +115,16 @@ public class Database {
         }
         e.sortAddressesByPostcode();
         return e.getAdresses();
+    }
+    public ArrayList<Bezorger> getBezorgers(){
+        ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        while (bCursor.hasNext()) {
+            Document user = bCursor.next();
+            Bezorger bezorger = new Bezorger(user.get("Name").toString());
+            bezorgers.add(bezorger);
+        }
+        //System.out.println(bezorgers.get(0).get("Name"));
+        return bezorgers;
     }
 }
