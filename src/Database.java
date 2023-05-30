@@ -74,14 +74,16 @@ public class Database {
             Document user = bCursor.next();
             System.out.println();
             //invalid salt version, passwords are currently plaintext
-            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            //if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            if(password.equals(user.get("Password").toString())){
                 returnVal = 1;
             }
         }
         if (mCursor.hasNext()) {
             Document user = mCursor.next();
             System.out.println();
-            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            //if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            if(password.equals(user.get("Password").toString())){
                 returnVal = 2;
             }
         }
