@@ -61,7 +61,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         }
         System.out.println(bezorgerButtonHeight);
         bezorgersScrollPane = new JScrollPane(bezorgersScrollPanePanel);
-        bezorgersScrollPane.setPreferredSize(new Dimension(1000, bezorgerButtonHeight * 5));
+        //bezorgersScrollPane.setPreferredSize(new Dimension(1000, bezorgerButtonHeight * 5));
         bezorgersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         backButton = new JButton("Terug");
@@ -73,7 +73,8 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         }*/
 
         //add components to leftpanel
-        leftPanel.add(bezorgersScrollPane, ApplicationFrame.createGBC(0, 0, 1, 2,0,0, 1, 0.5f, GridBagConstraints.BOTH));
+        //have a jlabel giving the manager instructions in the bottom left of the page?
+        leftPanel.add(bezorgersScrollPane, ApplicationFrame.createGBC(0, 0, 1, 5,0,0, 1, 1, GridBagConstraints.BOTH));
         //leftPanel.add(generateRouteButton, ApplicationFrame.createGBC(0, 2, 1, 1, 0,0,0, 0, GridBagConstraints.HORIZONTAL));
         //leftPanel.add(assignRouteButton, ApplicationFrame.createGBC(0, 4, 1, 1, 0, 0, 0, 1, GridBagConstraints.HORIZONTAL));
 
