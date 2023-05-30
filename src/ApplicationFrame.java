@@ -1,17 +1,17 @@
 package src;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.awt.*;
 
 public class ApplicationFrame extends JFrame {
+    private Database db = new Database();
     private ManagerPage managerPage = new ManagerPage(this);
     private BezorgerMenuPage bezorgerMenuPage = new BezorgerMenuPage(this);
     private RouteMenuPage routeMenuPage = new RouteMenuPage(this);
     private LoginPage loginPage = new LoginPage(this);
-//    private BezorgerPage bezorgerPage = new BezorgerPage(this);
+    //private BezorgerPage bezorgerPageOld = new BezorgerPage_old(this);
     private CardLayout cardLayout;
-
+    private String userName;
     ApplicationFrame(){
         setSize(600, 600);
         setLocationRelativeTo(null);
@@ -40,6 +40,8 @@ public class ApplicationFrame extends JFrame {
         this.cardLayout.show(this.getContentPane(), "routeMenuPage");
     }
 
+    public void showBezorgerPage() { this.cardLayout.show(this.getContentPane(), "bezorgerPage");}
+
     public static GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = gridx;
@@ -52,5 +54,14 @@ public class ApplicationFrame extends JFrame {
         constraints.ipady = ipady;
         constraints.fill = fill;
         return constraints;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getUserName(){
+        return userName;
+    }
+    public Database getDb(){
+        return db;
     }
 }

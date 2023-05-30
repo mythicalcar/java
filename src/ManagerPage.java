@@ -21,7 +21,7 @@ public class ManagerPage extends JPanel implements ActionListener {
         gridBagPanel = new JPanel(new GridBagLayout());
         gridBagPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 
-        welcomeLabel = new JLabel("Welkom " + "manager!");
+        welcomeLabel = new JLabel("Welkom " + applicationFrame.getName() +"!");
         welcomeLabel.setHorizontalAlignment(JLabel.CENTER);
         welcomeLabel.setPreferredSize(new Dimension(200, 100));
 

@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginPage extends JPanel {
-    Database db = new Database();
+    Database db;
     JTextField userName = new JTextField();
     JPasswordField userPass = new JPasswordField();
     JLabel userNameTxt = new JLabel("Naam:");
@@ -19,6 +19,7 @@ public class LoginPage extends JPanel {
     JPanel centerPanel = new JPanel();
     public LoginPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
+        db = applicationFrame.getDb();
         this.setLayout(new BorderLayout());
 
         login.addActionListener(e -> {
@@ -26,9 +27,11 @@ public class LoginPage extends JPanel {
             String password = String.valueOf(userPass.getPassword());
             int validation = db.checkUserData(name, password);
             if (validation == 1) {
-                applicationFrame.show();
+                applicationFrame.setUserName(name);
+                //applicationFrame.showB;
 
             } else if (validation == 2) {
+                applicationFrame.setUserName(name);
                 applicationFrame.showManagerPage();
             } else {
                 errFlash.setVisible(true);
