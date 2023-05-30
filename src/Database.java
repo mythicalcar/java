@@ -1,75 +1,100 @@
 package src;
 
-import java.util.Iterator;
-import org.bson.Document;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.bson.Document;
+import org.mindrot.jbcrypt.BCrypt;
+import java.util.ArrayList;
 
-//Wh3VKQTXN6jobpC0
+import java.util.Iterator;
+
 public class Database {
     MongoClient client = MongoClients.create(
-            "mongodb+srv://henk:Wh3VKQTXN6jobpC0@kbs.teqpcjy.mongodb.net/?retryWrites=true&w=majority");
+            "mongodb+srv://henk:wRobRl3fQE4O1DZl@kbs.teqpcjy.mongodb.net/?retryWrites=true&w=majority");
     MongoDatabase db = client.getDatabase("Users");
-    MongoCollection<Document> col = db.getCollection("accounts");
+    MongoCollection<Document> bezorgerCol = db.getCollection("bezorgers");
+    MongoCollection<Document> managerCol = db.getCollection("managers");
+    MongoCollection<Document> bestellingenCol = db.getCollection("Bestellingen");
     BasicDBObject retrievable = new BasicDBObject();
     FindIterable<Document> iterDoc;
     Iterator<Document> it;
-    MongoCursor<Document> cursor;
-    int i = 1;
+    MongoCursor<Document> bCursor;
+    MongoCursor<Document> mCursor;
+    MongoCursor<Document> oCursor;
 
     Database() {
         // eh
-        retrieveAllDocs();
     }
 
     public Boolean createAccount(String name, String password) {
         retrievable.put("Name", name);
-        cursor = col.find(retrievable).iterator();
+        bCursor = bezorgerCol.find(retrievable).iterator();
 
-        if (cursor.hasNext()) {
+        if (bCursor.hasNext()) {
             return false;
         } else {
-            Document document = new Document("_id", i);
+            String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+            String randomPassword = RandomStringUtils.random(15, characters);
+            String hashedPass = BCrypt.hashpw(randomPassword, BCrypt.gensalt(10));
+            Document document = new Document();
             document.append("Name", name);
-            document.append("Password", password);
-            document.append("Notes", "");
-            col.insertOne(document);
+            document.append("Password", hashedPass);
+            document.append("Bestellingen", "");
+            bezorgerCol.insertOne(document);
+            System.out.println(randomPassword);
             return true;
         }
     }
 
-    public Boolean checkUserData(String name, String password) {
+    public int checkUserData(String name, String password) {
         System.out.println(password);
-        Boolean returnVal = false;
+        int returnVal = 0;
         retrievable.put("Name", name);
-        cursor = col.find(retrievable).iterator();
-        if (cursor.hasNext()) {
-            Document user = cursor.next();
-            if (password.equals(user.get("Password"))) {
-                returnVal = true;
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        mCursor = managerCol.find(retrievable).iterator();
+        if (bCursor.hasNext()) {
+            Document user = bCursor.next();
+            System.out.println();
+            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+                returnVal = 1;
+            }
+        }
+        if (mCursor.hasNext()) {
+            Document user = mCursor.next();
+            System.out.println();
+            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+                returnVal = 2;
             }
         }
         System.out.println(returnVal);
         return returnVal;
     }
 
-    public void retrieveAllDocs() {
-        iterDoc = col.find();
-        it = iterDoc.iterator();
-        while (it.hasNext()) {
-            i++;
-            it.next();
-            // System.out.println(i);
-        }
-    }
+    // public void saveNotes(String notes, String name) {
+    // bezorgerCol.updateOne(Filters.eq("Name", name), Updates.set("Notes", notes));
+    // }
 
     public Document getUser(String name) {
         retrievable.put("Name", name);
-        cursor = col.find(retrievable).iterator();
-        Document user = cursor.next();
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        Document user = bCursor.next();
 
         return user;
+    }
+
+    public ArrayList<Adress> selectAdress() {
+        Orders e = new Orders();
+
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        while (oCursor.hasNext()) {
+            Document bestelling = oCursor.next();
+            //System.out.println(bestelling);
+            if (bestelling.get("Status").toString().equals("0")) {
+                e.addAdress(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()));
+            }
+        }
+        e.sortAddressesByPostcode();
+        return e.getAdresses();
     }
 }

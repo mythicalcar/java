@@ -1,4 +1,4 @@
-package scr;
+package src;
 
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;

@@ -72,14 +72,14 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         assignRouteButton = new JButton("Routes toewijzen");
 
         //add components to leftpanel
-        leftPanel.add(bezorgersScrollPane, createGBC(0, 0, 1, 2,0,0, 1, 0.5f, GridBagConstraints.BOTH));
-        leftPanel.add(generateRouteButton, createGBC(0, 2, 1, 1, 0,0,0, 0, GridBagConstraints.HORIZONTAL));
-        leftPanel.add(assignRouteButton, createGBC(0, 4, 1, 1, 0, 0, 0, 1, GridBagConstraints.HORIZONTAL));
+        leftPanel.add(bezorgersScrollPane, ApplicationFrame.createGBC(0, 0, 1, 2,0,0, 1, 0.5f, GridBagConstraints.BOTH));
+        leftPanel.add(generateRouteButton, ApplicationFrame.createGBC(0, 2, 1, 1, 0,0,0, 0, GridBagConstraints.HORIZONTAL));
+        leftPanel.add(assignRouteButton, ApplicationFrame.createGBC(0, 4, 1, 1, 0, 0, 0, 1, GridBagConstraints.HORIZONTAL));
 
         //add components to centerpanel
-        centerPanel.add(leftPanel, createGBC(0, 0, 1, 5, 0,0,0, 0, GridBagConstraints.BOTH));
-        centerPanel.add(mapPanel, createGBC(1, 0, 4, 3, 0,0,1, 1, GridBagConstraints.BOTH));
-        centerPanel.add(routePanel, createGBC(1, 3, 4, 2, 0,0,1, 0.5f, GridBagConstraints.BOTH));
+        centerPanel.add(leftPanel, ApplicationFrame.createGBC(0, 0, 1, 5, 0,0,0, 0, GridBagConstraints.BOTH));
+        centerPanel.add(mapPanel, ApplicationFrame.createGBC(1, 0, 4, 3, 0,0,1, 1, GridBagConstraints.BOTH));
+        centerPanel.add(routePanel, ApplicationFrame.createGBC(1, 3, 4, 2, 0,0,1, 0.5f, GridBagConstraints.BOTH));
 
         //add components to pageendpanel
         pageEndPanel.add(backButton);
@@ -100,21 +100,6 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         bezorgers.add(new Bezorger("Bezorger 1"));
         bezorgers.add(new Bezorger("Bezorger 1"));
     }
-
-    private GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill){
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = gridx;
-        constraints.gridy = gridy;
-        constraints.gridwidth = gridwith;
-        constraints.gridheight = gridheight;
-        constraints.weightx = weightx;
-        constraints.weighty = weighty;
-        constraints.ipadx = ipadx;
-        constraints.ipady = ipady;
-        constraints.fill = fill;
-        return constraints;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){

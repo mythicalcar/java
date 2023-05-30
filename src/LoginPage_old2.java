@@ -3,31 +3,39 @@
 //import javax.swing.*;
 //import java.awt.*;
 //
-//public class LoginPage_old extends JPanel {
+//public class LoginPage_old2 extends JFrame {
 //    Database db = new Database();
 //    JTextField userName = new JTextField();
 //    JPasswordField userPass = new JPasswordField();
-//    JLabel userNameTxt = new JLabel("Name:");
-//    JLabel userPassTxt = new JLabel("Password:");
-//    JLabel errFlash = new JLabel("Wrong name or password, try again");
+//    JLabel userNameTxt = new JLabel("Naam:");
+//    JLabel userPassTxt = new JLabel("Wachtwoord:");
+//    JLabel errFlash = new JLabel("Verkeerde wachtwoord of gebruikersnaam, probeer opnieuw");
 //    JButton login = new JButton("Login");
 //
-//    LoginPage_old(StartPage frame) {
-//        this.setBounds(0, 0, 500, 500);
+//    LoginPage_old2() {
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        this.setResizable(false);
 //        this.setFocusable(true);
 //        this.setBackground(new Color(120, 120, 120));
-//        this.setOpaque(true);
 //        this.setLayout(null);
+//        this.setPreferredSize(new Dimension(500, 500));
+//        this.pack();
+//        this.setVisible(true);
+//        this.setLocationRelativeTo(null);
 //
 //        login.setBounds(200, 300, 100, 40);
 //        login.setFocusable(false);
 //        login.addActionListener(e -> {
 //            String name = userName.getText();
 //            String password = String.valueOf(userPass.getPassword());
-//            Boolean validation = db.checkUserData(name, password);
-//            if (validation) {
-//                frame.dispose();
-//                new HomePage(name, db);
+//            int validation = db.checkUserData(name, password);
+//            if (validation == 1) {
+//                this.dispose();
+//                new BezorgerPage(name, db);
+//
+//            } else if (validation == 2) {
+//                this.dispose();
+//                new ManagerPage(name, db);
 //            } else {
 //                errFlash.setVisible(true);
 //            }

@@ -1,4 +1,4 @@
-package scr;
+package src;
 
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;

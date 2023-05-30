@@ -1,4 +1,4 @@
-package scr;
+package src;
 
 public class Adress {
     String plaats;

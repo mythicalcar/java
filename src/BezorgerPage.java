@@ -1,4 +1,4 @@
-package scr;
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ public class BezorgerPage extends JFrame {
     JPanel googleMapView = new JPanel();
     JPanel orderList = new JPanel();
     JScrollPane orderListScroller = new JScrollPane(orderList);
-
+    private ApplicationFrame applicationFrame;
     BezorgerPage(String name, Database db) {
         // google view for bezorgers
         googleMapView.setBackground(new Color(100, 100, 100));
