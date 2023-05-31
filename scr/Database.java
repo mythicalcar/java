@@ -134,7 +134,7 @@ public class Database {
         // Assuming you want to add 5 bezorgers
         int numBezorgers = getBezorgers().size();
         Object[][] dummyData = new Object[numBezorgers][5];
-
+        bCursor = bezorgerCol.find(retrievable).iterator();
         for (int i = 0; i < numBezorgers; i++) {
             Document user = bCursor.next();
             String naam = user.get("Name").toString();

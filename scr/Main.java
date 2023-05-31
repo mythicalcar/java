@@ -14,7 +14,7 @@ public class Main {
         ArrayList<Adress> eee =  db.selectAdress();
         aa.setAdresses(eee);
 //        System.out.println(aa.nearestNeighbor());
-        MapsPage.openGoogleMapsRoute(aa.nearestNeighbor());
+//        MapsPage.openGoogleMapsRoute(aa.nearestNeighbor());
 //        aa.addAdress(new Adress("Amsterdam", "Soerabajastraat", "4", "1095GP" ));
 //        aa.addAdress(new Adress("Almere", "Audioweg", "2", "1322AV" ));
 //        aa.addAdress(new Adress("Almere", "Televisieweg", "2", "1322AC"));
