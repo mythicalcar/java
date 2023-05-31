@@ -12,7 +12,7 @@ public class RegisterPage extends JPanel {
     JLabel errFlash = new JLabel("User already exists, try another name");
     JButton register = new JButton("Register");
 
-    RegisterPage(JPanel startPage) {
+    RegisterPage(ApplicationFrame applicationFrame) {
         this.setBounds(0, 0, 500, 500);
         this.setFocusable(true);
         this.setBackground(new Color(120, 120, 120));
@@ -26,8 +26,8 @@ public class RegisterPage extends JPanel {
             String password = String.valueOf(userPass.getPassword());
             Boolean created = db.createManagerAccount(name, password);
             if (created) {
-                this.setVisible(false);
-                startPage.setVisible(true);
+//                this.setVisible(false);
+//                startPage.setVisible(true);
             } else {
                 errFlash.setVisible(true);
             }

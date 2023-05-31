@@ -106,7 +106,7 @@ public class Database {
         bCursor = bezorgerCol.find(retrievable).iterator();
         while (bCursor.hasNext()) {
             Document user = bCursor.next();
-            Bezorger bezorger = new Bezorger(user.get("Name").toString());
+            Bezorger bezorger = new Bezorger(user.get("Name").toString(), user.get("Email").toString(), (int) user.get("Status"));
             bezorgers.add(bezorger);
         }
         //System.out.println(bezorgers.get(0).get("Name"));
@@ -130,22 +130,26 @@ public class Database {
             return true;
         }
     }
-    public Object[][] getBezorgerDataTable() {
+    public Object[][] getBezorgerDataTableForManager() {
         // Assuming you want to add 5 bezorgers
         int numBezorgers = getBezorgers().size();
-        Object[][] dummyData = new Object[numBezorgers][5];
+        Object[][] bezorgerData = new Object[numBezorgers][5];
         bCursor = bezorgerCol.find(retrievable).iterator();
         for (int i = 0; i < numBezorgers; i++) {
             Document user = bCursor.next();
             String naam = user.get("Name").toString();
-            String bestellingen = user.get("Bestellingen").toString();
+            String email = user.get("Email").toString();
             int status = (int) user.get("Status");
 
-            dummyData[i][0] = naam;
-            dummyData[i][1] = bestellingen;
-            dummyData[i][2] = status;
+            bezorgerData[i][0] = naam;
+            bezorgerData[i][1] = email;
+            if(status==0){
+                bezorgerData[i][2] = "Beschikbaar";
+            }else if(status==1){
+                bezorgerData[i][2] = "Niet beschikbaar";
+            }
         }
 
-        return dummyData;
+        return bezorgerData;
     }
 }

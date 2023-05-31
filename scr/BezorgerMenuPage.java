@@ -15,10 +15,11 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
     private Object[] bezorgersJTableColumns = {
             //id?
             "Naam",
+            "Email",
             "Status"};
     private Object[][] bezorgers;
     private JButton backButton;
-    private JButton addBezorgerButton;
+    private JButton addBezorgerButton = new JButton("Bezorger toevoegen");
 
     public BezorgerMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
@@ -35,7 +36,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        bezorgers = applicationFrame.getDb().getBezorgerDataTable();
+        bezorgers = applicationFrame.getDb().getBezorgerDataTableForManager();
         DefaultTableModel model = new DefaultTableModel(bezorgers, bezorgersJTableColumns) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -50,7 +51,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         bezorgersScrollPane = new JScrollPane(bezorgersJTable);
         bezorgersScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        addBezorgerButton = new JButton("Bezorger toevoegen");
+        addBezorgerButton.addActionListener(this);
         addBezorgerButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
         backButton = new JButton("Terug");
@@ -82,6 +83,9 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
             applicationFrame.showManagerPage();
+        }
+        if(e.getSource() == addBezorgerButton){
+            applicationFrame.showRegisterPage();
         }
     }
 }

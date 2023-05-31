@@ -10,6 +10,7 @@ public class ApplicationFrame extends JFrame {
     private RouteMenuPage routeMenuPage = new RouteMenuPage(this);
     private LoginPage loginPage = new LoginPage(this);
     private BezorgerPage bezorgerPage = new BezorgerPage(this);
+    private RegisterPage registerPage = new RegisterPage(this);
     private CardLayout cardLayout;
     private String userName;
     ApplicationFrame(){
@@ -24,6 +25,7 @@ public class ApplicationFrame extends JFrame {
         add(bezorgerMenuPage, "bezorgerMenuPage");
         add(routeMenuPage, "routeMenuPage");
         add(bezorgerPage, "bezorgerPage");
+        add(registerPage, "registerPage");
 
         cardLayout.show(this.getContentPane(), loginPage.getName());
 
@@ -44,7 +46,9 @@ public class ApplicationFrame extends JFrame {
     public void showBezorgerPage() {
         this.cardLayout.show(this.getContentPane(), "bezorgerPage");
     }
-
+    public void showRegisterPage(){
+        this.cardLayout.show(this.getContentPane(), "registerPage");
+    }
     public static GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill){
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = gridx;
