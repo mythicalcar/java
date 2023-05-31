@@ -130,4 +130,22 @@ public class Database {
             return true;
         }
     }
+    public Object[][] getBezorgerDataTable() {
+        // Assuming you want to add 5 bezorgers
+        int numBezorgers = getBezorgers().size();
+        Object[][] dummyData = new Object[numBezorgers][5];
+
+        for (int i = 0; i < numBezorgers; i++) {
+            Document user = bCursor.next();
+            String naam = user.get("Name").toString();
+            String bestellingen = user.get("Bestellingen").toString();
+            int status = (int) user.get("Status");
+
+            dummyData[i][0] = naam;
+            dummyData[i][1] = bestellingen;
+            dummyData[i][2] = status;
+        }
+
+        return dummyData;
+    }
 }

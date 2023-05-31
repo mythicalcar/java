@@ -1,12 +1,10 @@
 package scr;
 
 import javax.swing.*;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class BezorgerMenuPage extends JPanel implements ActionListener {
     private ApplicationFrame applicationFrame;
@@ -21,6 +19,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
     private Object[][] bezorgers;
     private JButton backButton;
     private JButton addBezorgerButton;
+
     public BezorgerMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
@@ -36,8 +35,14 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        bezorgers = getBezorgerData();
-        bezorgersJTable = new JTable(bezorgers, bezorgersJTableColumns);
+        bezorgers = applicationFrame.getDb().getBezorgerDataTable();
+        DefaultTableModel model = new DefaultTableModel(bezorgers, bezorgersJTableColumns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable editing for all cells
+            }
+        };
+        bezorgersJTable = new JTable(model);
         Dimension bezorgerTableSize = bezorgersJTable.getPreferredSize();
         bezorgersJTable.setPreferredScrollableViewportSize(bezorgerTableSize);
         bezorgersJTable.setCellSelectionEnabled(false);
@@ -78,17 +83,6 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         if(e.getSource() == backButton){
             applicationFrame.showManagerPage();
         }
-    }
-
-    private Object[][] getBezorgerData(){
-        //update this to get all bezorgers from the mongodb bezorgers collection
-//
-        Object[][] dummyData = {
-                {"Bezorger 1", "Almere", Integer.valueOf(0)},
-                {"Bezorger 2", "Almere", Integer.valueOf(0)},
-                {"Bezorger 3", "Almere", Integer.valueOf(0)}
-        };
-        return dummyData;
     }
 }
 
