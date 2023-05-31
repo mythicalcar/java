@@ -101,4 +101,33 @@ public class Database {
     public void assignOrders(){
 
     }
+    public ArrayList<Bezorger> getBezorgers(){
+        ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        while (bCursor.hasNext()) {
+            Document user = bCursor.next();
+            Bezorger bezorger = new Bezorger(user.get("Name").toString());
+            bezorgers.add(bezorger);
+        }
+        //System.out.println(bezorgers.get(0).get("Name"));
+        return bezorgers;
+    }
+    public Boolean createManagerAccount(String name, String password) {
+        retrievable.put("Name", name);
+        mCursor = managerCol.find(retrievable).iterator();
+
+        if (mCursor.hasNext()) {
+            return false;
+        } else {
+            String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+            String randomPassword = RandomStringUtils.random(15, characters);
+            String hashedPass = BCrypt.hashpw(randomPassword, BCrypt.gensalt(10));
+            Document document = new Document();
+            document.append("Name", name);
+            document.append("Password", hashedPass);
+            managerCol.insertOne(document);
+            System.out.println(randomPassword);
+            return true;
+        }
+    }
 }

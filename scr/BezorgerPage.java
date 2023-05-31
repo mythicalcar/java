@@ -2,14 +2,17 @@ package scr;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 
-public class BezorgerPage extends JFrame {
+public class BezorgerPage extends JPanel {
+    //private Database db;
     JPanel googleMapView = new JPanel();
     JPanel orderList = new JPanel();
     JScrollPane orderListScroller = new JScrollPane(orderList);
-
-    BezorgerPage(String name, Database db) {
+    private JLabel menuTitleLabel = new JLabel();
+    private ApplicationFrame applicationFrame;
+    BezorgerPage(ApplicationFrame applicationFrame){
+        this.applicationFrame = applicationFrame;
+        //db = applicationFrame.getDb();
         // google view for bezorgers
         googleMapView.setBackground(new Color(100, 100, 100));
         googleMapView.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 5));
@@ -36,11 +39,8 @@ public class BezorgerPage extends JFrame {
             orderList.add(panel);
         }
 
-        this.setTitle("Home");
-        this.getContentPane().setBackground(new Color(180, 180, 180));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(new Color(180, 180, 180));
         this.setLayout(null);
-        this.setResizable(true);
         this.setPreferredSize(new Dimension(1000, 800));
 
         // Create a wrapper panel for googleMapView
@@ -63,10 +63,5 @@ public class BezorgerPage extends JFrame {
 
         this.add(googleMapViewWrapper);
         this.add(orderListWrapper);
-
-        this.pack();
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
     }
-
 }
