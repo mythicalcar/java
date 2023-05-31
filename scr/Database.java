@@ -149,7 +149,7 @@ public class Database {
                 bezorgerData[i][2] = "Niet beschikbaar";
             }
         }
-
         return bezorgerData;
     }
+    //le method for updating bezorger status
 }

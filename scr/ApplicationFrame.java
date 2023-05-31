@@ -62,6 +62,11 @@ public class ApplicationFrame extends JFrame {
         constraints.fill = fill;
         return constraints;
     }
+    public static GridBagConstraints createGBCWithInsets(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill, Insets insets){
+        GridBagConstraints constraints = createGBC(gridx, gridy, gridwith, gridheight, ipadx, ipady, weightx, weighty, fill);
+        constraints.insets = insets;
+        return constraints;
+    }
     public void setUserName(String userName) {
         this.userName = userName;
     }
