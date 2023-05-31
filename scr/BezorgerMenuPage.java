@@ -2,6 +2,7 @@ package scr;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +14,10 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
     private JLabel menuTitleLabel;
     private JTable bezorgersJTable;
     private JScrollPane bezorgersScrollPane;
-//    private TableColumnModel bezorgersJTableColumns = {
-//            //id?
-//            "Naam",
-//            "Status"};
+    private Object[] bezorgersJTableColumns = {
+            //id?
+            "Naam",
+            "Status"};
     private Object[][] bezorgers;
     private JButton backButton;
     private JButton addBezorgerButton;
@@ -35,8 +36,8 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-//        bezorgers = getBezorgers();
-//        bezorgersJTable = new JTable(bezorgers, bezorgersJTableColumns);
+        bezorgers = getBezorgerData();
+        bezorgersJTable = new JTable(bezorgers, bezorgersJTableColumns);
         Dimension bezorgerTableSize = bezorgersJTable.getPreferredSize();
         bezorgersJTable.setPreferredScrollableViewportSize(bezorgerTableSize);
         bezorgersJTable.setCellSelectionEnabled(false);
@@ -79,17 +80,15 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         }
     }
 
-//    private  getBezorgersAsTableModel(){
-//        //update this to get all bezorgers from the mongodb bezorgers collection
-//        Object[][] bezorgerData;
-//        applicationFrame.getDb().getBezorgers().forEach(e -> {
-//            bezorgerData.
-//        });
-//        Object[][] dummyData = {
-//                {"Bezorger 1", "Almere", Integer.valueOf(0)},
-//                {"Bezorger 2", "Almere", Integer.valueOf(0)},
-//                {"Bezorger 3", "Almere", Integer.valueOf(0)}
-//        };
-//        return dummyData;
+    private Object[][] getBezorgerData(){
+        //update this to get all bezorgers from the mongodb bezorgers collection
+//
+        Object[][] dummyData = {
+                {"Bezorger 1", "Almere", Integer.valueOf(0)},
+                {"Bezorger 2", "Almere", Integer.valueOf(0)},
+                {"Bezorger 3", "Almere", Integer.valueOf(0)}
+        };
+        return dummyData;
     }
+}
 

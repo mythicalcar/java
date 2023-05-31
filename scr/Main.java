@@ -24,6 +24,7 @@ public class Main {
 //        LoginPage loginPage = new LoginPage();
 //
 //        System.out.println(eee);
+        ApplicationFrame applicationFrame = new ApplicationFrame();
     }
 }
 
