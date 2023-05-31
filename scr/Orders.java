@@ -30,6 +30,9 @@ public class Orders {
         return addresses;
     }
 
+    public void setAdresses(ArrayList<Adress> adresses) {
+        this.adresses = adresses;
+    }
 
     public ArrayList<Adress> getAdresses() {
         return adresses;
@@ -62,6 +65,7 @@ public class Orders {
         route.add(warehouse);
         return route;
     }
+
 
 
     public void addAdress(String plaats, String straatnaam, String huisnummer, String postcode) {

@@ -56,14 +56,14 @@ public class Database {
         if (bCursor.hasNext()) {
             Document user = bCursor.next();
             System.out.println();
-            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            if (/*BCrypt.checkpw(password, user.get("Password").toString())*/ password.equals(user.get("Password"))) {
                 returnVal = 1;
             }
         }
         if (mCursor.hasNext()) {
             Document user = mCursor.next();
             System.out.println();
-            if (BCrypt.checkpw(password, user.get("Password").toString())) {
+            if (/*BCrypt.checkpw(password, user.get("Password").toString())*/password.equals(user.get("Password"))) {
                 returnVal = 2;
             }
         }
@@ -96,5 +96,9 @@ public class Database {
         }
         e.sortAddressesByPostcode();
         return e.getAdresses();
+    }
+
+    public void assignOrders(){
+
     }
 }

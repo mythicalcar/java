@@ -14,6 +14,7 @@ public class ManagerPage extends JFrame {
         this.setLayout(null);
         this.setResizable(false);
         this.setPreferredSize(new Dimension(1000, 800));
+        this.add(send);
 
         this.pack();
         this.setVisible(true);
