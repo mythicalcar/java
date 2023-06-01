@@ -40,7 +40,7 @@ public class Database {
             Document document = new Document();
             document.append("Name", name);
             document.append("Password", hashedPass);
-            document.append("Bestellingen", "");
+            document.append("Bestellingen", new ArrayList<Bestelling>());
             bezorgerCol.insertOne(document);
             System.out.println(randomPassword);
             return true;
@@ -84,18 +84,18 @@ public class Database {
     }
 
     public ArrayList<Adress> selectAdress() {
-        Orders e = new Orders();
+        Orders orders = new Orders();
 
         oCursor = bestellingenCol.find(retrievable).iterator();
         while (oCursor.hasNext()) {
             Document bestelling = oCursor.next();
             //System.out.println(bestelling);
             if (bestelling.get("Status").toString().equals("0")) {
-                e.addAdress(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()));
+                orders.addAdress(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()));
             }
         }
-        e.sortAddressesByPostcode();
-        return e.getAdresses();
+        orders.sortAddressesByPostcode();
+        return orders.getAdresses();
     }
 
     public void assignOrders(){
@@ -130,13 +130,13 @@ public class Database {
             return true;
         }
     }
-    public Object[][] getBezorgerDataTableForManager() {
-        // Assuming you want to add 5 bezorgers
+    public Object[][] getBezorgerDataTable() {
         int numBezorgers = getBezorgers().size();
         Object[][] bezorgerData = new Object[numBezorgers][5];
         bCursor = bezorgerCol.find(retrievable).iterator();
         for (int i = 0; i < numBezorgers; i++) {
             Document user = bCursor.next();
+
             String naam = user.get("Name").toString();
             String email = user.get("Email").toString();
             int status = (int) user.get("Status");
@@ -150,6 +150,44 @@ public class Database {
             }
         }
         return bezorgerData;
+    }
+
+    //getbestellingenatbezorger?
+    public ArrayList<Bestelling> getBestellingen(){
+        ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        while (oCursor.hasNext()) {
+            Document bestelling = oCursor.next();
+            //System.out.println(bestelling);
+//            String plaats = bestelling.get("Plaats").toString();
+//            String straatnaam = bestelling.get("Straatnaam").toString();
+//            String huisnummer = bestelling.get("Huisnummer").toString();
+//            String postcode = bestelling.get("Postcode").toString();
+//            int status = (int) bestelling.get("Status");
+            bestellingen.add(new Bestelling(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
+        }
+        return bestellingen;
+    }
+    //gebruik bezorger id ipv naam?
+    public Object[][] getBestellingenDataTableManager(){
+        int bestellingenSize = getBestellingen().size();
+        Object[][] bestellingenData = new Object[bestellingenSize][5];
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        for (int i = 0; i < bestellingenSize; i++) {
+            Document bestelling = oCursor.next();
+
+            String plaats = bestelling.get("Plaats").toString();
+            String straatnaam = bestelling.get("Straatnaam").toString();
+            String huisnummer = bestelling.get("Huisnummer").toString();
+            String postcode = bestelling.get("Postcode").toString();
+            int status = (int) bestelling.get("Status");
+
+            bestellingenData[i][0] = plaats;
+            bestellingenData[i][1] = straatnaam;
+            bestellingenData[i][3] = huisnummer;
+            bestellingenData[i][4] = postcode;
+        }
+        return bestellingenData;
     }
     //le method for updating bezorger status
 }

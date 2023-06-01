@@ -36,7 +36,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        bezorgers = applicationFrame.getDb().getBezorgerDataTableForManager();
+        bezorgers = applicationFrame.getDb().getBezorgerDataTable();
         DefaultTableModel model = new DefaultTableModel(bezorgers, bezorgersJTableColumns) {
             @Override
             public boolean isCellEditable(int row, int column) {

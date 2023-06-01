@@ -1,6 +1,7 @@
 package scr;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +16,16 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     private JLabel menuTitleLabel;
     private JScrollPane bezorgersScrollPane;
     private JButton backButton;
+    private JScrollPane ordersPanel;// = new JScrollPane();
+    private Object[] bestellingenJTableColumns = {
+            //id?
+            "Plaats",
+            "Straatnaam",
+            "Huisnummer",
+            "Postcode"};
+    private JTable ordersTable;//initialise this with the ordersTableModel after updating bestellingen for selected bezorger
     //private JList bezorgerList;
-    private ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
+    private ArrayList<Bezorger> bezorgers;// = new ArrayList<Bezorger>();
 //    private ArrayList<JButton> bezorgersButtons = new ArrayList<JButton>();
     //private JButton[] selectedBezorgerButtons;
     //private JButton generateRouteButton = new JButton("Routes genereren");;
@@ -32,8 +41,16 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         centerPanel = new JPanel(new GridBagLayout());
 
-        JPanel mapPanel = new JPanel();
-        mapPanel.setBackground(Color.red);
+        //update jtable, removeall centerpanel, repaint and revalidate when you click on a bezorger
+        DefaultTableModel ordersTableModel = new DefaultTableModel(getBezorgerBestellingData(), bestellingenJTableColumns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable editing for all cells
+            }
+        };
+        ordersTable = new JTable(ordersTableModel);
+        //make an ordersscrollpane
+        ordersPanel = new JScrollPane(ordersTable);
 
 //        JPanel routePanel = new JPanel();
 //        routePanel.setBackground(Color.blue);
@@ -98,7 +115,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         //add components to centerpanel
         centerPanel.add(leftPanel, ApplicationFrame.createGBC(0, 0, 1, 5, 0,0,0.25f, 0, GridBagConstraints.BOTH));
-        centerPanel.add(mapPanel, ApplicationFrame.createGBC(1, 0, 4, 5, 0,0,1, 1, GridBagConstraints.BOTH));
+        centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 0, 4, 5, 0,0,1, 1, GridBagConstraints.BOTH));
 //        centerPanel.add(routePanel, ApplicationFrame.createGBC(1, 3, 4, 2, 0,0,1, 0.5f, GridBagConstraints.BOTH));
 
         //add components to pageendpanel
@@ -121,6 +138,9 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));
+    }
+    private Object[][] getBezorgerBestellingData(){
+        return applicationFrame.getDb().getBestellingenDataTableManager();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
