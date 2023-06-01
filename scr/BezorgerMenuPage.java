@@ -7,30 +7,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BezorgerMenuPage extends JPanel implements ActionListener {
-    private ApplicationFrame applicationFrame;
-    private JPanel centerPanel;
-    private JLabel menuTitleLabel;
-    private JTable bezorgersJTable;
-    private JScrollPane bezorgersScrollPane;
-    private Object[] bezorgersJTableColumns = {
+    ApplicationFrame applicationFrame;
+    JPanel centerPanel  = new JPanel();
+    JLabel menuTitleLabel = new JLabel("Bezorgers beheren");;
+    JTable bezorgersJTable;
+    JScrollPane bezorgersScrollPane;
+    Object[] bezorgersJTableColumns = {
             //id?
             "Naam",
             "Email",
             "Status"};
-    private Object[][] bezorgers;
-    private JButton backButton;
-    private JButton addBezorgerButton = new JButton("Bezorger toevoegen");
+    Object[][] bezorgers;
+    JButton backButton = new JButton("Terug");
+    JButton addBezorgerButton = new JButton("Bezorger toevoegen");
 
     public BezorgerMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
 
         //make components, add listeners and constraints
-        menuTitleLabel = new JLabel("Bezorgers beheren");
         menuTitleLabel.setHorizontalAlignment(JLabel.CENTER);
         menuTitleLabel.setPreferredSize(new Dimension(200, 100));
 
-        centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
         JPanel pageEndPanel = new JPanel();
@@ -54,7 +52,6 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         addBezorgerButton.addActionListener(this);
         addBezorgerButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
-        backButton = new JButton("Terug");
         backButton.addActionListener(this);
 
         //add components to centerpanel

@@ -44,7 +44,6 @@ public class RegisterPage extends JPanel {
         errFlash.setVisible(false);
 
         this.add(register);
-
         this.add(userName);
         this.add(userNameTxt);
         this.add(userPass);

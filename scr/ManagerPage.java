@@ -7,13 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ManagerPage extends JPanel implements ActionListener {
-    private JButton bezorgerMenuButton = new JButton("Bezorgers beheren");
-    private JButton routeMenuButton = new JButton("Routes beheren");
-    private JButton logOutButton = new JButton("Log uit");
-    private ApplicationFrame applicationFrame;
-    private JPanel gridBagPanel = new JPanel(new GridBagLayout());;
-    private JLabel welcomeLabel = new JLabel("Welkom " + "null" +"!");;
-    private JPanel pageEndPanel = new JPanel();
+    JButton bezorgerMenuButton = new JButton("Bezorgers beheren");
+    JButton routeMenuButton = new JButton("Routes beheren");
+    JButton logOutButton = new JButton("Log uit");
+    ApplicationFrame applicationFrame;
+    JPanel gridBagPanel = new JPanel(new GridBagLayout());;
+    JLabel welcomeLabel = new JLabel("Welkom " + "null" +"!");;
+    JPanel pageEndPanel = new JPanel();
     public ManagerPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());

@@ -10,22 +10,22 @@ import java.util.Iterator;
 import org.bson.Document;
 
 public class RouteMenuPage extends JPanel implements ActionListener {
-    private ApplicationFrame applicationFrame;
-    private JPanel centerPanel;
-    private JPanel leftPanel;
-    private JLabel menuTitleLabel;
-    private JScrollPane bezorgersScrollPane;
-    private JButton backButton;
-    private JScrollPane ordersPanel;// = new JScrollPane();
-    private Object[] bestellingenJTableColumns = {
+    ApplicationFrame applicationFrame;
+    JPanel centerPanel;
+    JPanel leftPanel;
+    JLabel menuTitleLabel;
+    JScrollPane bezorgersScrollPane;
+    JButton backButton;
+    JScrollPane ordersPanel;// = new JScrollPane();
+    Object[] bestellingenJTableColumns = {
             //id?
             "Plaats",
             "Straatnaam",
             "Huisnummer",
             "Postcode"};
-    private JTable ordersTable;//initialise this with the ordersTableModel after updating bestellingen for selected bezorger
+    JTable ordersTable;//initialise this with the ordersTableModel after updating bestellingen for selected bezorger
     //private JList bezorgerList;
-    private ArrayList<Bezorger> bezorgers;// = new ArrayList<Bezorger>();
+    ArrayList<Bezorger> bezorgers;// = new ArrayList<Bezorger>();
 //    private ArrayList<JButton> bezorgersButtons = new ArrayList<JButton>();
     //private JButton[] selectedBezorgerButtons;
     //private JButton generateRouteButton = new JButton("Routes genereren");;
