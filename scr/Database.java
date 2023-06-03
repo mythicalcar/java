@@ -4,6 +4,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.ArrayList;
 
@@ -42,7 +44,7 @@ public class Database {
             document.append("Password", hashedPass);
             document.append("Bestellingen", new ArrayList<Bestelling>());
             bezorgerCol.insertOne(document);
-            System.out.println(randomPassword);
+            //System.out.println(randomPassword);
             return true;
         }
     }
@@ -55,19 +57,19 @@ public class Database {
         mCursor = managerCol.find(retrievable).iterator();
         if (bCursor.hasNext()) {
             Document user = bCursor.next();
-            System.out.println();
+            //System.out.println();
             if (/*BCrypt.checkpw(password, user.get("Password").toString())*/ password.equals(user.get("Password"))) {
                 returnVal = 1;
             }
         }
         if (mCursor.hasNext()) {
             Document user = mCursor.next();
-            System.out.println();
+            //System.out.println();
             if (/*BCrypt.checkpw(password, user.get("Password").toString())*/password.equals(user.get("Password"))) {
                 returnVal = 2;
             }
         }
-        System.out.println(returnVal);
+        //System.out.println(returnVal);
         return returnVal;
     }
 
@@ -75,7 +77,7 @@ public class Database {
     // bezorgerCol.updateOne(Filters.eq("Name", name), Updates.set("Notes", notes));
     // }
 
-    public Document getUser(String name) {
+    public Document getBezorger(String name) {
         retrievable.put("Name", name);
         bCursor = bezorgerCol.find(retrievable).iterator();
         Document user = bCursor.next();
@@ -98,7 +100,7 @@ public class Database {
         return orders.getAdresses();
     }
 
-    public void assignOrders(){
+    public void assignOrders(int bezorgerId){
 
     }
     public ArrayList<Bezorger> getBezorgers(){
@@ -106,7 +108,7 @@ public class Database {
         bCursor = bezorgerCol.find(retrievable).iterator();
         while (bCursor.hasNext()) {
             Document user = bCursor.next();
-            Bezorger bezorger = new Bezorger(user.get("Name").toString(), user.get("Email").toString(), (int) user.get("Status"));
+            Bezorger bezorger = new Bezorger(user.get("_id").toString(), user.get("Name").toString(), user.get("Email").toString(), (int) user.get("Status"));
             bezorgers.add(bezorger);
         }
         //System.out.println(bezorgers.get(0).get("Name"));
@@ -126,7 +128,7 @@ public class Database {
             document.append("Name", name);
             document.append("Password", hashedPass);
             managerCol.insertOne(document);
-            System.out.println(randomPassword);
+            //System.out.println(randomPassword);
             return true;
         }
     }
@@ -168,10 +170,31 @@ public class Database {
         }
         return bestellingen;
     }
+    public void getBestellingenFromBezorger(String bezorgerId){
+        ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+        retrievable.put("_id", new ObjectId(bezorgerId));
+        System.out.println(new ObjectId(bezorgerId) + bezorgerId);
+        bCursor = bezorgerCol.find(retrievable).iterator();//bezorgerCol.find(retrievable);
+        while(bCursor.hasNext()){
+            System.out.println("balls");
+            Document bezorger = bCursor.next();
+            //System.out.println(bezorger.get("_id" + " " + bezorgerId));
+            if(bezorger.get("_id").toString().equals(bezorgerId)){
+                System.out.println(bezorger.get("Bestellingen"));
+            }
+        }
+
+        //bezorger.get("Bestellingen");
+        //bestellingen = bezorger.get("Bestellingen");
+        //return bestellingen;
+    }
+
     //gebruik bezorger id ipv naam?
-    public Object[][] getBestellingenDataTableManager(){
+    public Object[][] getBestellingenDataTableManager(String bezorgerId){
         int bestellingenSize = getBestellingen().size();
         Object[][] bestellingenData = new Object[bestellingenSize][5];
+//        BasicDBObject retrievable = new BasicDBObject();
+//        retrievable.put("")
         oCursor = bestellingenCol.find(retrievable).iterator();
         for (int i = 0; i < bestellingenSize; i++) {
             Document bestelling = oCursor.next();
@@ -184,8 +207,8 @@ public class Database {
 
             bestellingenData[i][0] = plaats;
             bestellingenData[i][1] = straatnaam;
-            bestellingenData[i][3] = huisnummer;
-            bestellingenData[i][4] = postcode;
+            bestellingenData[i][2] = huisnummer;
+            bestellingenData[i][3] = postcode;
         }
         return bestellingenData;
     }
