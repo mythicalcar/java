@@ -172,8 +172,10 @@ public class Database {
     }
     public void getBestellingenFromBezorger(String bezorgerId){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+//        retrievable.put("_id", new ObjectId(bezorgerId));
+//        System.out.println(new ObjectId(bezorgerId) + bezorgerId);
+        BasicDBObject retrievable = new BasicDBObject();
         retrievable.put("_id", new ObjectId(bezorgerId));
-        System.out.println(new ObjectId(bezorgerId) + bezorgerId);
         bCursor = bezorgerCol.find(retrievable).iterator();//bezorgerCol.find(retrievable);
         while(bCursor.hasNext()){
             System.out.println("balls");
