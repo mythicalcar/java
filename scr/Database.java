@@ -2,11 +2,16 @@ package scr;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.bson.BsonArray;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Iterator;
@@ -85,6 +90,23 @@ public class Database {
         return user;
     }
 
+    public Document getBezorgerId(String id) {
+        BasicDBObject retrievable = new BasicDBObject();
+        //retrievable.put("_id", new ObjectId(id));
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        Document bezorger = new Document();
+        while(bCursor.hasNext()){
+            bezorger = bCursor.next();
+            if (bezorger.get("_id").toString().equals(id)) {
+                return bezorger;
+            }
+        }
+        //Document user = bCursor.next();
+
+        return bezorger;
+    }
+
+
     public ArrayList<Adress> selectAdress() {
         Orders orders = new Orders();
 
@@ -99,9 +121,23 @@ public class Database {
         orders.sortAddressesByPostcode();
         return orders.getAdresses();
     }
-
-    public void assignOrders(int bezorgerId){
-
+    public void assignOrders(String bezorgerId){
+        ArrayList<Bestelling> bestellingen = getBestellingen();
+        bestellingen = Orders.sortBestellingenByPostcode(bestellingen);
+        int OrdersPerBezorger = 1;
+        //make sure the bestelling has status 0
+        BsonArray bestellingArray = new BsonArray();//[OrdersPerBezorger];
+        if(bestellingen.size() > 0) {
+            for (int i = 0; i < OrdersPerBezorger; i++) {
+                //System.out.println(bezorgerId);
+                Document bezorger = getBezorgerId(bezorgerId);
+                BasicDBObject retrievable = new BasicDBObject();
+                //bestellingArray.add(bestellingArray)
+                //bestellingArray[i] = bestellingen.get(i).id;
+            }
+            //turn bestellingarray into a bson array? idk how that shit works
+            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", bestellingArray));
+        }
     }
     public ArrayList<Bezorger> getBezorgers(){
         ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
@@ -157,6 +193,7 @@ public class Database {
     //getbestellingenatbezorger?
     public ArrayList<Bestelling> getBestellingen(){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+        BasicDBObject retrievable = new BasicDBObject();
         oCursor = bestellingenCol.find(retrievable).iterator();
         while (oCursor.hasNext()) {
             Document bestelling = oCursor.next();
@@ -166,7 +203,7 @@ public class Database {
 //            String huisnummer = bestelling.get("Huisnummer").toString();
 //            String postcode = bestelling.get("Postcode").toString();
 //            int status = (int) bestelling.get("Status");
-            bestellingen.add(new Bestelling(new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
+            bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
         }
         return bestellingen;
     }
@@ -178,7 +215,6 @@ public class Database {
         retrievable.put("_id", new ObjectId(bezorgerId));
         bCursor = bezorgerCol.find(retrievable).iterator();//bezorgerCol.find(retrievable);
         while(bCursor.hasNext()){
-            System.out.println("balls");
             Document bezorger = bCursor.next();
             //System.out.println(bezorger.get("_id" + " " + bezorgerId));
             if(bezorger.get("_id").toString().equals(bezorgerId)){
@@ -195,8 +231,7 @@ public class Database {
     public Object[][] getBestellingenDataTableManager(String bezorgerId){
         int bestellingenSize = getBestellingen().size();
         Object[][] bestellingenData = new Object[bestellingenSize][5];
-//        BasicDBObject retrievable = new BasicDBObject();
-//        retrievable.put("")
+        BasicDBObject retrievable = new BasicDBObject();
         oCursor = bestellingenCol.find(retrievable).iterator();
         for (int i = 0; i < bestellingenSize; i++) {
             Document bestelling = oCursor.next();

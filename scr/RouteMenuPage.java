@@ -81,6 +81,9 @@ public class RouteMenuPage extends JPanel implements ActionListener {
                 bezorgerButton.addActionListener(e -> {
                     int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.OK_CANCEL_OPTION);
                     System.out.println(result);
+                    if(result == 0){
+                        applicationFrame.getDb().assignOrders(bezorger.id);
+                    }
                     getBezorgerBestellingData(bezorger.id);
                 });
             } else if (bezorger.status == 1) {

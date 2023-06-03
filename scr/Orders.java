@@ -29,6 +29,17 @@ public class Orders {
         // Return the sorted addresses
         return addresses;
     }
+    public static ArrayList<Bestelling> sortBestellingenByPostcode(ArrayList<Bestelling> bestellingen) {
+        ArrayList<Bestelling> sortedBestellingen = bestellingen;
+        // Use a custom comparator to sort the addresses based on the postcode
+        Comparator<Bestelling> postcodeComparator = Comparator.comparing(Bestelling::getPostcode);
+
+        // Sort the addresses using the comparator
+        Collections.sort(bestellingen, postcodeComparator);
+
+        // Return the sorted addresses
+        return bestellingen;
+    }
 
     public void setAdresses(ArrayList<Adress> adresses) {
         this.adresses = adresses;
