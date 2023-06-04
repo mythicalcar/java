@@ -241,7 +241,7 @@ public class Database {
         return bestellingen;
     }
 
-    public void getBestellingenFromBezorger(String bezorgerId){
+    public String getBestellingenFromBezorger(String bezorgerId){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
 //        retrievable.put("_id", new ObjectId(bezorgerId));
 //        System.out.println(new ObjectId(bezorgerId) + bezorgerId);
@@ -252,9 +252,10 @@ public class Database {
             Document bezorger = bCursor.next();
             //System.out.println(bezorger.get("_id" + " " + bezorgerId));
             if(bezorger.get("_id").toString().equals(bezorgerId)){
-                System.out.println(bezorger.get("Bestellingen"));
+                return bezorger.get("Bestellingen").toString();
             }
         }
+        return "";
 
         //bezorger.get("Bestellingen");
         //bestellingen = bezorger.get("Bestellingen");
