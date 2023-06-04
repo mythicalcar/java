@@ -1,11 +1,15 @@
 package scr;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.annotations.JsonAdapter;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bson.BsonArray;
+import org.bson.BsonValue;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -29,6 +33,7 @@ public class Database {
     MongoCursor<Document> bCursor;
     MongoCursor<Document> mCursor;
     MongoCursor<Document> oCursor;
+    Gson gson = new Gson();
 
     Database() {
         // eh
@@ -122,21 +127,30 @@ public class Database {
         return orders.getAdresses();
     }
     public void assignOrders(String bezorgerId){
-        ArrayList<Bestelling> bestellingen = getBestellingen();
+        ArrayList<Bestelling> bestellingen = getAvailableBestellingen();
+        //create getBestellingStatus method? it may be inefficient to sort orders you're not going to be assigning anyways
+        //I think I just noticed that the orders are sorted by postcode after sorting by distance - shouldn't it be the other way round?
         bestellingen = Orders.sortBestellingenByPostcode(bestellingen);
         int OrdersPerBezorger = 1;
         //make sure the bestelling has status 0
-        BsonArray bestellingArray = new BsonArray();//[OrdersPerBezorger];
-        if(bestellingen.size() > 0) {
+        Object[] bestellingArray = new Object[OrdersPerBezorger];
+        //bestellingArray.add(1, b);
+        if(bestellingen.isEmpty() == false) {
             for (int i = 0; i < OrdersPerBezorger; i++) {
                 //System.out.println(bezorgerId);
-                Document bezorger = getBezorgerId(bezorgerId);
-                BasicDBObject retrievable = new BasicDBObject();
-                //bestellingArray.add(bestellingArray)
-                //bestellingArray[i] = bestellingen.get(i).id;
+//                Document bezorger = getBezorgerId(bezorgerId);
+//                bestellingArray = bezorger.get("Bestellingen");
+//                BasicDBObject retrievable = new BasicDBObject();
+//                bestellingArray.add(bestellingArray)
+                bestellingArray[i] = bestellingen.get(i).id;
+                bestellingenCol.updateOne(Filters.eq("_id", new ObjectId(bestellingen.get(i).id)), Updates.set("Status", 1));
+//                bestellingArray.add(new BsonValue(bestellingen.get(i).id));
             }
-            //turn bestellingarray into a bson array? idk how that shit works
-            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", bestellingArray));
+
+            String bestellingArrayJson = gson.toJson(bestellingArray);
+            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
+            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Status", 1));
+//            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
         }
     }
     public ArrayList<Bezorger> getBezorgers(){
@@ -207,6 +221,26 @@ public class Database {
         }
         return bestellingen;
     }
+
+    public ArrayList<Bestelling> getAvailableBestellingen(){
+        ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+        BasicDBObject retrievable = new BasicDBObject();
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        while (oCursor.hasNext()) {
+            Document bestelling = oCursor.next();
+            //System.out.println(bestelling);
+//            String plaats = bestelling.get("Plaats").toString();
+//            String straatnaam = bestelling.get("Straatnaam").toString();
+//            String huisnummer = bestelling.get("Huisnummer").toString();
+//            String postcode = bestelling.get("Postcode").toString();
+//            int status = (int) bestelling.get("Status");
+            if((int) bestelling.get("Status") == 0){
+                bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
+            }
+        }
+        return bestellingen;
+    }
+
     public void getBestellingenFromBezorger(String bezorgerId){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
 //        retrievable.put("_id", new ObjectId(bezorgerId));
