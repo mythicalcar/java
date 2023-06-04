@@ -2,6 +2,7 @@ package scr;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BezorgerPage extends JPanel {
     //private Database db;
@@ -11,6 +12,7 @@ public class BezorgerPage extends JPanel {
     private JLabel menuTitleLabel = new JLabel();
     private ApplicationFrame applicationFrame;
     BezorgerPage(ApplicationFrame applicationFrame){
+
         this.applicationFrame = applicationFrame;
         //db = applicationFrame.getDb();
         // google view for bezorgers
@@ -27,7 +29,7 @@ public class BezorgerPage extends JPanel {
         orderListScroller.getVerticalScrollBar().setUnitIncrement(20);
         orderListScroller.getVerticalScrollBar().setBlockIncrement(100);
 
-        for (int i = 1; i <= 200; i++) {
+        for (int i = 1; i <= 5; i++) {
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension(orderList.getWidth(), 50));
             panel.setBackground(Color.GRAY);

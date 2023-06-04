@@ -14,7 +14,7 @@ public class HomePage extends JFrame {
     Document user;
 
     HomePage(String name, Database db) {
-        user = db.getBezorger(name);
+        //user = db.getBezorger(name);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);

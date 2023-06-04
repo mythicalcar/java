@@ -2,6 +2,7 @@ package scr;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ApplicationFrame extends JFrame {
     private Database db = new Database();
@@ -14,6 +15,8 @@ public class ApplicationFrame extends JFrame {
     private CardLayout cardLayout;
     private String userName;
     private String userId;
+    private String bezorgerId;
+    private ArrayList<Bestelling> bestellingen;
     ApplicationFrame(){
         setSize(800, 600);
         setLocationRelativeTo(null);
@@ -70,6 +73,19 @@ public class ApplicationFrame extends JFrame {
     }
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+    public void setBezorgerId(String id) {
+        this.bezorgerId = id;
+    }
+    public String getBezorgerId(){
+        return this.bezorgerId;
+    }
+
+    public void setBestellingen(ArrayList<Bestelling> bestellingen) {
+        this.bestellingen = bestellingen;
+    }
+    public ArrayList<Bestelling> getBestellingen(){
+        return this.bestellingen;
     }
     public void setUserId(String userId){
         this.userId = userId;

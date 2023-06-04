@@ -1,5 +1,8 @@
 package scr;
 
+import com.mongodb.BasicDBObject;
+import org.bson.Document;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -30,6 +33,9 @@ public class LoginPage extends JPanel {
                 applicationFrame.setUserName(name);
                 //not hashing the user id might not be the most secure, but that is something that unfortunately does not fall within our budget at this point in time
                 applicationFrame.showBezorgerPage();
+                applicationFrame.setBezorgerId(applicationFrame.getDb().getBezorgerId(name));
+                applicationFrame.setBestellingen(applicationFrame.getDb().getBestellingenFromBezorger(applicationFrame.getBezorgerId()));
+                System.out.println(applicationFrame.getDb().getBestellingById(applicationFrame.getBestellingen().toString()));
 
             } else if (validation == 2) {
                 applicationFrame.setUserName(name);

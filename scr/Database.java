@@ -97,20 +97,18 @@ public class Database {
         return user;
     }
 
-    public Document getBezorgerId(String id) {
+    public String getBezorgerId(String name) {
         BasicDBObject retrievable = new BasicDBObject();
-        //retrievable.put("_id", new ObjectId(id));
+        retrievable.put("Name", name);
         bCursor = bezorgerCol.find(retrievable).iterator();
         Document bezorger = new Document();
         while(bCursor.hasNext()){
             bezorger = bCursor.next();
-            if (bezorger.get("_id").toString().equals(id)) {
-                return bezorger;
-            }
+                return bezorger.get("_id").toString();
         }
         //Document user = bCursor.next();
 
-        return bezorger;
+        return "";
     }
 
 
