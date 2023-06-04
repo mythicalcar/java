@@ -222,6 +222,26 @@ public class Database {
         return bestellingen;
     }
 
+    public Bestelling getBestellingById(String bestellingId){
+        Bestelling bestellingToReturn = new Bestelling("-1", new Adress("", "", "", ""), -1);
+        BasicDBObject retrievable = new BasicDBObject();
+        oCursor = bestellingenCol.find(retrievable).iterator();
+        while (oCursor.hasNext()) {
+            Document bestelling = oCursor.next();
+            if(bestelling.get("_id").toString().equals(bestellingId)){
+                bestellingToReturn = new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status"));
+            }
+            //System.out.println(bestelling);
+//            String plaats = bestelling.get("Plaats").toString();
+//            String straatnaam = bestelling.get("Straatnaam").toString();
+//            String huisnummer = bestelling.get("Huisnummer").toString();
+//            String postcode = bestelling.get("Postcode").toString();
+//            int status = (int) bestelling.get("Status");
+//            bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
+        }
+        return bestellingToReturn;
+    }
+
     public ArrayList<Bestelling> getAvailableBestellingen(){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
         BasicDBObject retrievable = new BasicDBObject();
@@ -241,21 +261,26 @@ public class Database {
         return bestellingen;
     }
 
-    public String getBestellingenFromBezorger(String bezorgerId){
-        ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+    public ArrayList<Bestelling> getBestellingenFromBezorger(String bezorgerId){
+        ArrayList<Bestelling> bestellingen = new ArrayList<>();
 //        retrievable.put("_id", new ObjectId(bezorgerId));
 //        System.out.println(new ObjectId(bezorgerId) + bezorgerId);
         BasicDBObject retrievable = new BasicDBObject();
-        retrievable.put("_id", new ObjectId(bezorgerId));
+        //retrievable.put("_id", new ObjectId(bezorgerId));
         bCursor = bezorgerCol.find(retrievable).iterator();//bezorgerCol.find(retrievable);
         while(bCursor.hasNext()){
             Document bezorger = bCursor.next();
             //System.out.println(bezorger.get("_id" + " " + bezorgerId));
             if(bezorger.get("_id").toString().equals(bezorgerId)){
-                return bezorger.get("Bestellingen").toString();
+                //getdeclared fields is not the answer here
+                Object[] bestellingenArray = bezorger.get("Bestellingen").getClass().getDeclaredFields();
+                for (Object bestelling:bestellingenArray) {
+                    System.out.println(bestelling.toString());
+                    bestellingen.add(getBestellingById(bestelling.toString()));
+                }
             }
         }
-        return "";
+        return bestellingen;
 
         //bezorger.get("Bestellingen");
         //bestellingen = bezorger.get("Bestellingen");
@@ -264,23 +289,33 @@ public class Database {
 
     //gebruik bezorger id ipv naam?
     public Object[][] getBestellingenDataTableManager(String bezorgerId){
-        int bestellingenSize = getBestellingen().size();
-        Object[][] bestellingenData = new Object[bestellingenSize][5];
-        BasicDBObject retrievable = new BasicDBObject();
-        oCursor = bestellingenCol.find(retrievable).iterator();
-        for (int i = 0; i < bestellingenSize; i++) {
-            Document bestelling = oCursor.next();
+        //int bestellingenSize = getBestellingen().size();
+        ArrayList<Bestelling> bezorgerBestellingen = getBestellingenFromBezorger(bezorgerId);
+        int bestellingenDataSize = bezorgerBestellingen.size();
+        Object[][] bestellingenData = new Object[bestellingenDataSize][3];
+        //int bestellingenDataCursor = 0;
+//        BasicDBObject retrievable = new BasicDBObject();
+//        oCursor = bestellingenCol.find(retrievable).iterator();
+        System.out.println(bestellingenDataSize);
+        for (int i = 0; i < bestellingenDataSize; i++){
+            //System.out.println("hi");
+            BasicDBObject retrievable = new BasicDBObject();
+            oCursor = bestellingenCol.find(retrievable).iterator();
+            while(oCursor.hasNext()){
+                Document bestelling = oCursor.next();
+                if (bestelling.get("_id").toString().equals(bezorgerBestellingen.get(i))) {
+                    String plaats = bestelling.get("Plaats").toString();
+                    String straatnaam = bestelling.get("Straatnaam").toString();
+                    String huisnummer = bestelling.get("Huisnummer").toString();
+                    String postcode = bestelling.get("Postcode").toString();
+                    //int status = (int) bestelling.get("Status");
 
-            String plaats = bestelling.get("Plaats").toString();
-            String straatnaam = bestelling.get("Straatnaam").toString();
-            String huisnummer = bestelling.get("Huisnummer").toString();
-            String postcode = bestelling.get("Postcode").toString();
-            int status = (int) bestelling.get("Status");
-
-            bestellingenData[i][0] = plaats;
-            bestellingenData[i][1] = straatnaam;
-            bestellingenData[i][2] = huisnummer;
-            bestellingenData[i][3] = postcode;
+                    bestellingenData[i][0] = plaats;
+                    bestellingenData[i][1] = straatnaam;
+                    bestellingenData[i][2] = huisnummer;
+                    bestellingenData[i][3] = postcode;
+                }
+            }
         }
         return bestellingenData;
     }

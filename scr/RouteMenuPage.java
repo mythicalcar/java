@@ -88,14 +88,16 @@ public class RouteMenuPage extends JPanel implements ActionListener {
                 });
             } else if (bezorger.status == 1) {
                 bezorgerButton.setBackground(Color.orange);
-                DefaultTableModel ordersTableModel = new DefaultTableModel(getBezorgerBestellingData(bezorger.id), bestellingenJTableColumns) {
-                    @Override
-                    public boolean isCellEditable(int row, int column) {
-                        return false; // Disable editing for all cells
-                    }
-                };
-                ordersTable = new JTable(ordersTableModel);
-                ordersPanel = new JScrollPane(ordersTable);
+                bezorgerButton.addActionListener(e -> {
+                    DefaultTableModel ordersTableModel = new DefaultTableModel(getBezorgerBestellingData(bezorger.id), bestellingenJTableColumns) {
+                        @Override
+                        public boolean isCellEditable(int row, int column) {
+                            return false; // Disable editing for all cells
+                        }
+                    };
+                    ordersTable = new JTable(ordersTableModel);
+                    ordersPanel = new JScrollPane(ordersTable);
+                });
             }
 //            bezorgerButtonHeight = bezorgerButton.getPreferredSize().height;
 //            bezorgerButtonWidth =  bezorgerButton.getPreferredSize().width;
@@ -149,7 +151,6 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        bezorgers.add(new Bezorger("Bezorger 1"));
     }
     private Object[][] getBezorgerBestellingData(String bezorgerId){
-        applicationFrame.getDb().getBestellingenFromBezorger(bezorgerId);
         return applicationFrame.getDb().getBestellingenDataTableManager(bezorgerId);
     }
     @Override
