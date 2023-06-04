@@ -13,8 +13,9 @@ public class ApplicationFrame extends JFrame {
     private RegisterPage registerPage = new RegisterPage(this);
     private CardLayout cardLayout;
     private String userName;
+    private String userId;
     ApplicationFrame(){
-        setSize(600, 600);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         cardLayout = new CardLayout();
         setLayout(cardLayout);
@@ -70,8 +71,8 @@ public class ApplicationFrame extends JFrame {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getUserName(){
-        return userName;
+    public void setUserId(String userId){
+        this.userId = userId;
     }
     public Database getDb(){
         return db;

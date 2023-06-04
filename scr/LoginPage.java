@@ -28,6 +28,7 @@ public class LoginPage extends JPanel {
             int validation = db.checkUserData(name, password);
             if (validation == 1) {
                 applicationFrame.setUserName(name);
+                //not hashing the user id might not be the most secure, but that is something that unfortunately does not fall within our budget at this point in time
                 applicationFrame.showBezorgerPage();
 
             } else if (validation == 2) {

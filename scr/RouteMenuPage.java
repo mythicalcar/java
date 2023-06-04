@@ -12,9 +12,10 @@ import org.bson.Document;
 public class RouteMenuPage extends JPanel implements ActionListener {
     ApplicationFrame applicationFrame;
     JPanel centerPanel;
-    JPanel leftPanel;
+    JPanel leftPanel= new JPanel(new BorderLayout());
     JLabel menuTitleLabel;
     JScrollPane bezorgersScrollPane;
+    JPanel bezorgersScrollPanePanelPanel = new JPanel();
     JButton backButton;
     JLabel ordersPanelLabel = new JLabel(String.format("<html><body style=\"text-align: justify;  text-justify: inter-word;\">%s</body></html>", "Selecteer een beschikbare (groen) bezorger om bestellingen aan hem toe te wijzen. Selecteer een bezorgende (oranje) bezorger om zijn route te bekijken."));
     JScrollPane ordersPanel = new JScrollPane();
@@ -26,6 +27,11 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             "Postcode",
             "Status"
     };
+
+    public Object[] getBestellingenJTableColumns() {
+        return bestellingenJTableColumns;
+    }
+
     JTable ordersTable;//initialise this with the ordersTableModel after updating bestellingen for selected bezorger
     //private JList bezorgerList;
         ArrayList<Bezorger> bezorgers;// = new ArrayList<Bezorger>();
@@ -50,7 +56,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        JPanel routePanel = new JPanel();
 //        routePanel.setBackground(Color.blue);
 
-        leftPanel = new JPanel(new BorderLayout());
+
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         JPanel pageEndPanel = new JPanel();
@@ -58,11 +64,10 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         JPanel bezorgersScrollPanePanel = new JPanel();
         bezorgersScrollPanePanel.setLayout(new GridLayout(0, 1));
-        JPanel bezorgersScrollPanePanelPanel = new JPanel(new BorderLayout());
         //Get available bezorgers. For every available bezorger, put a button for them into the scrollpane.
         updateBezorgers();
-        int bezorgerButtonHeight = 10;
-        int bezorgerButtonWidth = 0;
+//        int bezorgerButtonHeight = 10;
+//        int bezorgerButtonWidth = 0;
         for (Bezorger bezorger:bezorgers) {
             //assign the order to the relevant bezorger, preferably by id
             //redraw the route menu page and display that bezorger's orders? use a method for this
@@ -81,7 +86,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             if(bezorger.status == 0){
                 bezorgerButton.setBackground(Color.green);
                 bezorgerButton.addActionListener(e -> {
-                    int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.OK_CANCEL_OPTION);
+                    int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.YES_NO_OPTION);
                     System.out.println(result);
                     if(result == 0){
                         boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
@@ -112,6 +117,8 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         bezorgersScrollPane = new JScrollPane(bezorgersScrollPanePanelPanel);
         //bezorgersScrollPane.setPreferredSize(new Dimension(bezorgersScrollPanePanel.getPreferredSize().width, bezorgersScrollPane.getPreferredSize().height));
         bezorgersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//        bezorgersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
 
         backButton = new JButton("Terug");
         backButton.addActionListener(this);

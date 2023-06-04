@@ -213,7 +213,7 @@ public class Database {
     }
 
     //getbestellingenatbezorger?
-    public ArrayList<Bestelling> getBestellingen(){
+/*    public ArrayList<Bestelling> getBestellingen(){
         ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
         BasicDBObject retrievable = new BasicDBObject();
         oCursor = bestellingenCol.find(retrievable).iterator();
@@ -228,7 +228,7 @@ public class Database {
             bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
         }
         return bestellingen;
-    }
+    }*/
 
     public Bestelling getBestellingById(String bestellingId){
         Bestelling bestellingToReturn = new Bestelling("-1", new Adress("", "", "", ""), -1);
