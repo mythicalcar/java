@@ -23,7 +23,9 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             "Plaats",
             "Straatnaam",
             "Huisnummer",
-            "Postcode"};
+            "Postcode",
+            "Status"
+    };
     JTable ordersTable;//initialise this with the ordersTableModel after updating bestellingen for selected bezorger
     //private JList bezorgerList;
         ArrayList<Bezorger> bezorgers;// = new ArrayList<Bezorger>();
@@ -82,21 +84,24 @@ public class RouteMenuPage extends JPanel implements ActionListener {
                     int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.OK_CANCEL_OPTION);
                     System.out.println(result);
                     if(result == 0){
-                        applicationFrame.getDb().assignOrders(bezorger.id);
+                        boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
+                        if(ordersAssigned == true){
+                            bezorgerButton.setBackground(Color.orange);
+                            updateBezorgerBestellingTable(bezorger.id);
+                            for (ActionListener actionListener:bezorgerButton.getActionListeners()) {
+                                bezorgerButton.removeActionListener(actionListener);
+                            }
+                            bezorgerButton.addActionListener(e2 ->{
+                                updateBezorgerBestellingTable(bezorger.id);
+                            });
+                        }
                     }
                     getBezorgerBestellingData(bezorger.id);
                 });
             } else if (bezorger.status == 1) {
                 bezorgerButton.setBackground(Color.orange);
                 bezorgerButton.addActionListener(e -> {
-                    DefaultTableModel ordersTableModel = new DefaultTableModel(getBezorgerBestellingData(bezorger.id), bestellingenJTableColumns) {
-                        @Override
-                        public boolean isCellEditable(int row, int column) {
-                            return false; // Disable editing for all cells
-                        }
-                    };
-                    ordersTable = new JTable(ordersTableModel);
-                    ordersPanel = new JScrollPane(ordersTable);
+                    updateBezorgerBestellingTable(bezorger.id);
                 });
             }
 //            bezorgerButtonHeight = bezorgerButton.getPreferredSize().height;
@@ -149,6 +154,21 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));
+    }
+    private void updateBezorgerBestellingTable(String bezorgerId){
+        DefaultTableModel ordersTableModel = new DefaultTableModel(getBezorgerBestellingData(bezorgerId), bestellingenJTableColumns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Disable editing for all cells
+            }
+        };
+
+        centerPanel.remove(ordersPanel);
+        ordersTable = new JTable(ordersTableModel);
+        ordersPanel = new JScrollPane(ordersTable);
+        centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 1, 4, 4, 0,0,1, 1, GridBagConstraints.BOTH));
+        centerPanel.revalidate();
+        centerPanel.repaint();
     }
     private Object[][] getBezorgerBestellingData(String bezorgerId){
         return applicationFrame.getDb().getBestellingenDataTableManager(bezorgerId);

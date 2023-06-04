@@ -18,7 +18,9 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class Database {
     MongoClient client = MongoClients.create(
@@ -126,7 +128,7 @@ public class Database {
         orders.sortAddressesByPostcode();
         return orders.getAdresses();
     }
-    public void assignOrders(String bezorgerId){
+    public boolean assignOrders(String bezorgerId){
         ArrayList<Bestelling> bestellingen = getAvailableBestellingen();
         //create getBestellingStatus method? it may be inefficient to sort orders you're not going to be assigning anyways
         //I think I just noticed that the orders are sorted by postcode after sorting by distance - shouldn't it be the other way round?
@@ -151,6 +153,12 @@ public class Database {
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Status", 1));
 //            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
+        }
+        //we could do with some try catch statements, but we don't get paid enough for that
+        if(bestellingen.isEmpty()){
+            return false;
+        } else{
+            return true;
         }
     }
     public ArrayList<Bezorger> getBezorgers(){
@@ -228,6 +236,7 @@ public class Database {
         oCursor = bestellingenCol.find(retrievable).iterator();
         while (oCursor.hasNext()) {
             Document bestelling = oCursor.next();
+//            System.out.println(bestelling.get("_id").toString() + " " + bestellingId);
             if(bestelling.get("_id").toString().equals(bestellingId)){
                 bestellingToReturn = new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status"));
             }
@@ -270,13 +279,11 @@ public class Database {
         bCursor = bezorgerCol.find(retrievable).iterator();//bezorgerCol.find(retrievable);
         while(bCursor.hasNext()){
             Document bezorger = bCursor.next();
-            //System.out.println(bezorger.get("_id" + " " + bezorgerId));
             if(bezorger.get("_id").toString().equals(bezorgerId)){
-                //getdeclared fields is not the answer here
-                Object[] bestellingenArray = bezorger.get("Bestellingen").getClass().getDeclaredFields();
+                List bestellingenArray = Arrays.asList(bezorger.get("Bestellingen"));
                 for (Object bestelling:bestellingenArray) {
-                    System.out.println(bestelling.toString());
-                    bestellingen.add(getBestellingById(bestelling.toString()));
+//                    System.out.println(bestelling.toString());
+                    bestellingen.add(getBestellingById(bestelling.toString().replace("[", "").replace("]", "")));
                 }
             }
         }
@@ -292,28 +299,33 @@ public class Database {
         //int bestellingenSize = getBestellingen().size();
         ArrayList<Bestelling> bezorgerBestellingen = getBestellingenFromBezorger(bezorgerId);
         int bestellingenDataSize = bezorgerBestellingen.size();
-        Object[][] bestellingenData = new Object[bestellingenDataSize][3];
+        Object[][] bestellingenData = new Object[bestellingenDataSize][5];
         //int bestellingenDataCursor = 0;
 //        BasicDBObject retrievable = new BasicDBObject();
 //        oCursor = bestellingenCol.find(retrievable).iterator();
-        System.out.println(bestellingenDataSize);
         for (int i = 0; i < bestellingenDataSize; i++){
-            //System.out.println("hi");
             BasicDBObject retrievable = new BasicDBObject();
             oCursor = bestellingenCol.find(retrievable).iterator();
             while(oCursor.hasNext()){
                 Document bestelling = oCursor.next();
-                if (bestelling.get("_id").toString().equals(bezorgerBestellingen.get(i))) {
+                if (bestelling.get("_id").toString().equals(bezorgerBestellingen.get(i).id)) {
                     String plaats = bestelling.get("Plaats").toString();
                     String straatnaam = bestelling.get("Straatnaam").toString();
                     String huisnummer = bestelling.get("Huisnummer").toString();
                     String postcode = bestelling.get("Postcode").toString();
-                    //int status = (int) bestelling.get("Status");
+                    int status = (int) bestelling.get("Status");
 
                     bestellingenData[i][0] = plaats;
                     bestellingenData[i][1] = straatnaam;
                     bestellingenData[i][2] = huisnummer;
                     bestellingenData[i][3] = postcode;
+                    if(status == 1){
+                        bestellingenData[i][4] = "Onderweg";
+                    } else if (status == 2) {
+                        bestellingenData[i][4] = "Geleverd";
+                    }else {
+                        bestellingenData[i][4] = "Wordt verwerkt";
+                    }
                 }
             }
         }
