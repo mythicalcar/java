@@ -34,7 +34,12 @@ public class LoginPage extends JPanel {
                 //not hashing the user id might not be the most secure, but that is something that unfortunately does not fall within our budget at this point in time
                 applicationFrame.showBezorgerPage();
                 applicationFrame.setBezorgerId(applicationFrame.getDb().getBezorgerId(name));
+                System.out.println(applicationFrame.getBezorgerId());
                 applicationFrame.setBestellingen(applicationFrame.getDb().getBestellingenFromBezorger(applicationFrame.getBezorgerId()));
+                System.out.println(applicationFrame.getBestellingen());
+                //for (Bestelling value : applicationFrame.getBestellingen()){
+                  //  System.out.println(value);
+                //}
             } else if (validation == 2) {
                 applicationFrame.setUserName(name);
                 applicationFrame.showManagerPage();

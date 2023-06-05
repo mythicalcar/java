@@ -2,6 +2,8 @@ package scr;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class BezorgerPage extends JPanel {
@@ -9,15 +11,33 @@ public class BezorgerPage extends JPanel {
     JPanel googleMapView = new JPanel();
     JPanel orderList = new JPanel();
     JScrollPane orderListScroller = new JScrollPane(orderList);
+    JButton openGoogleMaps = new JButton("Open route in google maps");
+    JButton laadRoutes = new JButton("Refresh routes");
+    JButton klaar = new JButton("Klaar");
+    JButton fout = new JButton("Fout");
+
+    String currentRoutePointer;
+
+    MapsPage map = new MapsPage();
+    ArrayList<Adress> route = new ArrayList<Adress>();
+    Orders orders = new Orders();
+    int i = 1;
     private JLabel menuTitleLabel = new JLabel();
     private ApplicationFrame applicationFrame;
     BezorgerPage(ApplicationFrame applicationFrame){
-
         this.applicationFrame = applicationFrame;
         //db = applicationFrame.getDb();
         // google view for bezorgers
         googleMapView.setBackground(new Color(100, 100, 100));
         googleMapView.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 5));
+        googleMapView.add(openGoogleMaps);
+        googleMapView.add(klaar);
+        googleMapView.add(fout);
+        googleMapView.add(laadRoutes);
+
+        openGoogleMaps.setVisible(false);
+        klaar.setVisible(false);
+        fout.setVisible(false);
 
         // orderlist for navigations
         orderList.setBackground(new Color(100, 100, 100));
@@ -29,17 +49,44 @@ public class BezorgerPage extends JPanel {
         orderListScroller.getVerticalScrollBar().setUnitIncrement(20);
         orderListScroller.getVerticalScrollBar().setBlockIncrement(100);
 
-        for (int i = 1; i <= 5; i++) {
-            JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension(orderList.getWidth(), 50));
-            panel.setBackground(Color.GRAY);
-            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        openGoogleMaps.addActionListener(e -> {
+            map.openGoogleMapsRoute(orders.nearestNeighbor());
+        });
 
-            JLabel label = new JLabel("label" + i);
-            panel.add(label);
+        laadRoutes.addActionListener(e -> {
+            orderList.removeAll();
+            i = 1;
+            for (Bestelling value : applicationFrame.getBestellingen()) {
 
-            orderList.add(panel);
-        }
+                JPanel panel = new JPanel();
+                panel.setPreferredSize(new Dimension(orderList.getWidth(), 50));
+                panel.setBackground(Color.GRAY);
+                panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+                int adressStartIndex = value.toString().indexOf("adress=") + 7;
+                int adressEndIndex = value.toString().indexOf(",", adressStartIndex);
+                String adress = value.toString().substring(adressStartIndex, adressEndIndex);
+                String adressPointer = "Route" + i;
+                JLabel label = new JLabel(adressPointer);
+                panel.add(label);
+                label.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        System.out.println(label.getText());
+                        currentRoutePointer = label.getText();
+                        openGoogleMaps.setVisible(true);
+                        klaar.setVisible(true);
+                        fout.setVisible(true);
+                        String[] adressPieces = adress.split(" ");
+                        Adress newAdress = new Adress(adressPieces[0], adressPieces[1], adressPieces[2], adressPieces[3]);
+                        route.add(newAdress);
+                        orders.setAdresses(route);
+                    }});
+
+                orderList.add(panel);
+                i++;
+            }
+        });
+
 
         this.setBackground(new Color(180, 180, 180));
         this.setLayout(null);
