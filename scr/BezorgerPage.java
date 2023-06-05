@@ -55,6 +55,7 @@ public class BezorgerPage extends JPanel {
 
         laadRoutes.addActionListener(e -> {
             orderList.removeAll();
+            route.clear();
             i = 1;
             for (Bestelling value : applicationFrame.getBestellingen()) {
 
@@ -68,6 +69,11 @@ public class BezorgerPage extends JPanel {
                 String adressPointer = "Route" + i;
                 JLabel label = new JLabel(adressPointer);
                 panel.add(label);
+
+                String[] adressPieces = adress.split(" ");
+                Adress newAdress = new Adress(adressPieces[0], adressPieces[1], adressPieces[2], adressPieces[3]);
+                route.add(newAdress);
+                orders.setAdresses(route);
                 label.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -76,10 +82,6 @@ public class BezorgerPage extends JPanel {
                         openGoogleMaps.setVisible(true);
                         klaar.setVisible(true);
                         fout.setVisible(true);
-                        String[] adressPieces = adress.split(" ");
-                        Adress newAdress = new Adress(adressPieces[0], adressPieces[1], adressPieces[2], adressPieces[3]);
-                        route.add(newAdress);
-                        orders.setAdresses(route);
                     }});
 
                 orderList.add(panel);
