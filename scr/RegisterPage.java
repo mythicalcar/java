@@ -46,7 +46,7 @@ public class RegisterPage extends JPanel implements ActionListener {
                 flashPanel.add(successFlash);
                 flashPanel.revalidate();
                 flashPanel.repaint();
-                applicationFrame.refreshBezorgers();
+                applicationFrame.refreshBezorgerAndRouteMenuPage();
             } else {
                 flashPanel.removeAll();
                 flashPanel.add(errFlash);

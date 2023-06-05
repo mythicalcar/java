@@ -99,12 +99,12 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         JPanel bezorgerPanelRightPanel = new JPanel(new FlowLayout());
         JLabel bezorgerLabel = new JLabel("<html><span style='font-weight: normal;'>Gebruikersnaam:</span> " + bezorger.name + "</html>");
         JButton deleteButton = new JButton("Verwijderen");
-        JButton passwordButton = new JButton("Wachtwoord bekijken");
+//        JButton passwordButton = new JButton("Wachtwoord bekijken");
         //jlabel won't turn transparent...
         bezorgerLabel.setOpaque(false);
         bezorgerPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
         bezorgerPanelLeftPanel.add(bezorgerLabel);
-        bezorgerPanelRightPanel.add(passwordButton);
+//        bezorgerPanelRightPanel.add(passwordButton);
         bezorgerPanelRightPanel.add(deleteButton);
         bezorgerPanel.add(bezorgerPanelLeftPanel, BorderLayout.LINE_START);
         bezorgerPanel.add(bezorgerPanelRightPanel, BorderLayout.LINE_END);
@@ -117,14 +117,14 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
                 int result = JOptionPane.showConfirmDialog(applicationFrame, "<html><span style='font-weight: normal;'>Wil je bezorger</span> " + bezorger.name + "</u> <span style='font-weight: normal;'>zeker</span> <span style='color: red;'>verwijderen</span>?</html>?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if(result == 0){
                     applicationFrame.getDb().deleteBezorger(bezorger.id);
-                    refreshBezorgers();
+                    applicationFrame.refreshBezorgerAndRouteMenuPage();
                 }
 //                bezorgersScrollPane.remove(bezorgerPanel);
             });
         } else if (bezorger.status == 1) {
             deleteButton.setBackground(Color.gray);
             deleteButton.addActionListener(e -> {
-                JOptionPane.showMessageDialog(applicationFrame, "Deze bezorger is op dit moment aan het bezorgen. Druk op de refresh-knop om de status van de bezorgers opnieuw op te halen.");
+                JOptionPane.showMessageDialog(applicationFrame, "Deze bezorger is op dit moment aan het bezorgen.\nDruk op de refresh-knop om de status van de bezorgers opnieuw op te halen.");
 
                 //bring up a dialogue: bezorger unavailable?
             });
@@ -150,9 +150,10 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         }
         if(e.getSource() == refreshButton){
             refreshBezorgers();
+            applicationFrame.refreshRouteMenuPage();
+//            applicationFrame.refreshBezorgerAndRouteMenuPage();
         }
     }
-
     public void refreshBezorgers(){
         bezorgers = applicationFrame.getDb().getBezorgers();
         bezorgersScrollPanePanel.removeAll();

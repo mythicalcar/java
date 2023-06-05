@@ -80,6 +80,7 @@ public class ApplicationFrame extends JFrame {
     public String getBezorgerId(){
         return this.bezorgerId;
     }
+
     public void setBestellingen(ArrayList<Bestelling> bestellingen) {
         this.bestellingen = bestellingen;
     }
@@ -92,8 +93,15 @@ public class ApplicationFrame extends JFrame {
     public Database getDb(){
         return db;
     }
-    public void refreshBezorgers(){
+    public void refreshBezorgerAndRouteMenuPage(){
+        //i don't know why, but this isn't refreshing the bezorger list on either of the pages
         bezorgerMenuPage.refreshBezorgers();
-        routeMenuPage.updateBezorgers();
+        routeMenuPage.refreshBezorgers();
+    }
+    public void refreshBezorgerMenuPage(){
+        bezorgerMenuPage.refreshBezorgers();
+    }
+    public void refreshRouteMenuPage(){
+        routeMenuPage.refreshBezorgers();
     }
 }

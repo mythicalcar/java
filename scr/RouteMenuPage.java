@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import org.bson.Document;
 
 public class RouteMenuPage extends JPanel implements ActionListener {
@@ -18,7 +22,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     JPanel bezorgersScrollPanePanel = new JPanel();
     JPanel bezorgersScrollPanePanelPanel = new JPanel();
     JButton backButton = new JButton("Terug");
-    JLabel ordersPanelLabel = new JLabel(String.format("<html><body style=\"text-align: justify;  text-justify: inter-word;\">%s</body></html>", "Selecteer een beschikbare (groen) bezorger om bestellingen aan hem toe te wijzen. Selecteer een bezorgende (oranje) bezorger om zijn route te bekijken."));
+    JLabel ordersPanelLabel = new JLabel(String.format("<html><body style=\"text-align: justify;  text-justify: inter-word;\">%s</body></html>", "Selecteer een beschikbare (groen) bezorger om bestellingen aan ze toe te wijzen. Selecteer een bezorgende (oranje) bezorger om zijn route te bekijken."));
     JScrollPane ordersPanel = new JScrollPane();
     Object[] bestellingenJTableColumns = {
             //id?
@@ -28,7 +32,9 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             "Postcode",
             "Status"
     };
-
+    String bezorgerNaam = "";
+    JLabel bezorgerLabel = new JLabel();
+    JButton refreshButton = new JButton("Refresh");
     public Object[] getBestellingenJTableColumns() {
         return bestellingenJTableColumns;
     }
@@ -57,7 +63,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        routePanel.setBackground(Color.blue);
 
 
-        leftPanel.setLayout(new GridLayout(0, 1));
+        leftPanel.setLayout(new BorderLayout());
 
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -65,7 +71,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         bezorgersScrollPanePanel.setLayout(new GridLayout(0, 1));
         //Get available bezorgers. For every available bezorger, put a button for them into the scrollpane.
-        updateBezorgers();
+        refreshBezorgers();
 //        int bezorgerButtonHeight = 10;
 //        int bezorgerButtonWidth = 0;
 //        for (Bezorger bezorger:bezorgers) {
@@ -120,7 +126,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        bezorgersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         backButton.addActionListener(this);
-
+        refreshButton.addActionListener(this);
         //add buttons to bezorgersscrollpane
 /*        for(int i = 0; i < bezorgersButtons.size(); i++){
             bezorgersScrollPane.add(bezorgersButtons.get(i));
@@ -128,15 +134,19 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         //add components to leftpanel
         //have a jlabel giving the manager instructions in the bottom left of the page?
-        leftPanel.add(bezorgersScrollPane);
+        leftPanel.add(bezorgersScrollPane, BorderLayout.CENTER);
+        leftPanel.add(refreshButton, BorderLayout.PAGE_END);
 //        leftPanel.add(bezorgersScrollPane, ApplicationFrame.createGBC(0, 0, 1, 5,0,0, 1, 1, GridBagConstraints.BOTH));
         //leftPanel.add(generateRouteButton, ApplicationFrame.createGBC(0, 2, 1, 1, 0,0,0, 0, GridBagConstraints.HORIZONTAL));
         //leftPanel.add(assignRouteButton, ApplicationFrame.createGBC(0, 4, 1, 1, 0, 0, 0, 1, GridBagConstraints.HORIZONTAL));
 
         //add components to centerpanel
-        centerPanel.add(ordersPanelLabel, ApplicationFrame.createGBC(1, 0, 4, 1, 0, 0, 0, 0, GridBagConstraints.BOTH));
+        ordersPanelLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
         centerPanel.add(leftPanel, ApplicationFrame.createGBC(0, 0, 1, 5, 0,0,0.25f, 0, GridBagConstraints.BOTH));
+        centerPanel.add(ordersPanelLabel, ApplicationFrame.createGBCWithInsets(1, 0, 4, 1, 0, 1, 0, 0, GridBagConstraints.BOTH, new Insets(0, 0, 1, 0)));
         centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 1, 4, 4, 0,0,1, 1, GridBagConstraints.BOTH));
+//        centerPanel.add(refreshButton, ApplicationFrame.createGBC(0, 4, 1, 1, 0, 0, 0, 0, GridBagConstraints.NONE));
+
 //        centerPanel.add(routePanel, ApplicationFrame.createGBC(1, 3, 4, 2, 0,0,1, 0.5f, GridBagConstraints.BOTH));
 
         //add components to pageendpanel
@@ -147,9 +157,25 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         //this.add(lineStartPanel, BorderLayout.LINE_START);
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(pageEndPanel, BorderLayout.PAGE_END);
+
+/*        Runnable periodicBezorgerUpdate = new Runnable() {
+            @Override
+            public void run() {
+                if (bezorgerNaam != ""){
+                    String currentBezorger = bezorgerNaam;
+                    refreshBezorgers();
+                    bezorgerNaam = currentBezorger;
+                    updateBezorgerBestellingTable(applicationFrame.getDb().getBezorgerId(currentBezorger));
+                    System.out.println("refreshed!");
+                }
+            }
+        };
+
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(periodicBezorgerUpdate, 0, 15, TimeUnit.SECONDS);*/
     }
 
-    public void updateBezorgers(){
+    public void refreshBezorgers(){
         //bezorgers ophalen vanuit database die een status van beschikbaar hebben
         bezorgers = applicationFrame.getDb().getBezorgers();
 //        int bezorgerButtonHeight = 10;
@@ -192,6 +218,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             } else if (bezorger.status == 1) {
                 bezorgerButton.setBackground(Color.orange);
                 bezorgerButton.addActionListener(e -> {
+                    bezorgerNaam = bezorger.name;
                     updateBezorgerBestellingTable(bezorger.id);
                 });
             }
@@ -202,6 +229,22 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         bezorgersScrollPanePanel.revalidate();
         bezorgersScrollPanePanel.repaint();
 
+        if(bezorgerNaam != ""){
+            bezorgerNaam = "";
+            System.out.println("remove??");
+            centerPanel.remove(bezorgerLabel);
+            ordersPanel.remove(ordersTable);
+        }
+
+//        System.out.println("this should print");
+        centerPanel.remove(ordersPanel);
+        ordersPanel = new JScrollPane();
+        centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 2, 4, 3, 0,0,1, 1, GridBagConstraints.BOTH));
+
+        centerPanel.revalidate();
+        centerPanel.repaint();
+        leftPanel.revalidate();
+        leftPanel.repaint();
         //System.out.println(bezorgersArray);
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));
@@ -218,10 +261,17 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             }
         };
 
+        if(bezorgerLabel != null){
+            centerPanel.remove(bezorgerLabel);
+            bezorgerLabel = null;
+        }
+
         centerPanel.remove(ordersPanel);
         ordersTable = new JTable(ordersTableModel);
         ordersPanel = new JScrollPane(ordersTable);
-        centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 1, 4, 4, 0,0,1, 1, GridBagConstraints.BOTH));
+        bezorgerLabel = new JLabel("<html><span style='font-weight: normal;'>Je bekijkt nu de route van <b>" + bezorgerNaam + "</b>.</span></html>");
+        centerPanel.add(bezorgerLabel, ApplicationFrame.createGBC(1, 1, 4, 1, 0,0,0, 0, GridBagConstraints.BOTH));
+        centerPanel.add(ordersPanel, ApplicationFrame.createGBC(1, 2, 4, 3, 0,0,1, 1, GridBagConstraints.BOTH));
         centerPanel.revalidate();
         centerPanel.repaint();
     }
@@ -232,6 +282,11 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == backButton){
             applicationFrame.showManagerPage();
+        }
+        if(e.getSource() == refreshButton){
+            refreshBezorgers();
+            applicationFrame.refreshBezorgerMenuPage();
+//            applicationFrame.refreshBezorgerAndRouteMenuPage();
         }
     }
 }

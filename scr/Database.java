@@ -72,14 +72,12 @@ public class Database {
             Document bezorger = bCursor.next();
             if(bezorger.get("_id").toString().equals(bezorgerId)){
                 bezorgerCol.deleteOne(bezorger);
-                System.out.println("bezorger deleted");
             }
         }
         return false;
     }
 
     public int checkUserData(String name, String password) {
-        System.out.println(password);
         int returnVal = 0;
         retrievable.put("Name", name);
         bCursor = bezorgerCol.find(retrievable).iterator();
@@ -263,7 +261,8 @@ public class Database {
 //            String postcode = bestelling.get("Postcode").toString();
 //            int status = (int) bestelling.get("Status");
 //            bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
-        }
+        };
+        System.out.println(bestellingToReturn.id);
         return bestellingToReturn;
     }
 
