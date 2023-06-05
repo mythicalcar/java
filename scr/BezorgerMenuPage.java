@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class BezorgerMenuPage extends JPanel implements ActionListener {
     ApplicationFrame applicationFrame;
-    JPanel centerPanel  = new JPanel();
-    JLabel menuTitleLabel = new JLabel("Bezorgers beheren");;
+    JPanel bezorgerScrollPanePanel  = new JPanel();
+    JLabel menuTitleLabel = new JLabel("Bezorgers beheren");
 //    JTable bezorgersJTable;
     JScrollPane bezorgersScrollPane;
     JPanel bezorgersScrollPanePanel = new JPanel();
@@ -27,7 +27,9 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
 //            "Status"};
     ArrayList<Bezorger> bezorgers = new ArrayList<>();
     JButton backButton = new JButton("Terug");
-    JButton addBezorgerButton = new JButton("Bezorger toevoegen");
+    JButton addBezorgerButton = new JButton("Bezorger registreren");
+    JButton refreshButton = new JButton("Bezorgers refreshen");
+    JPanel flowPanel = new JPanel(new FlowLayout());
 
     public BezorgerMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
@@ -39,12 +41,12 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         menuTitleLabel.setHorizontalAlignment(JLabel.CENTER);
         menuTitleLabel.setPreferredSize(new Dimension(200, 100));
 
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        bezorgerScrollPanePanel.setLayout(new BoxLayout(bezorgerScrollPanePanel, BoxLayout.Y_AXIS));
 
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        bezorgers = applicationFrame.getDb().getBezorgers();
+//        bezorgers = applicationFrame.getDb().getBezorgers();
 /*        DefaultTableModel model = new DefaultTableModel(bezorgers, bezorgersJTableColumns) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -57,10 +59,12 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         bezorgersJTable.setCellSelectionEnabled(false);*/
 
 //        JPanel bezorgerScrollPaneHeader
-        for (int i = 0; i < bezorgers.size(); i++) {
-            JPanel bezorgerPanel = createBezorgerPanel(bezorgers.get(i));
-            bezorgersScrollPanePanel.add(bezorgerPanel);
-        }
+//        for (int i = 0; i < bezorgers.size(); i++) {
+//            JPanel bezorgerPanel = createBezorgerPanel(bezorgers.get(i));
+//            bezorgersScrollPanePanel.add(bezorgerPanel);
+//        }
+
+        refreshBezorgers();
 
         bezorgersScrollPanePanelPanel.add(bezorgersScrollPanePanel, BorderLayout.PAGE_START);
         bezorgersScrollPane = new JScrollPane(bezorgersScrollPanePanelPanel);//(bezorgersJTable);
@@ -71,23 +75,29 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
 
         backButton.addActionListener(this);
 
+        flowPanel.add(addBezorgerButton);
+        flowPanel.add(refreshButton);
+
+        JPanel centerPanelPanel = new JPanel(new BorderLayout());
         //add components to centerpanel
-        centerPanel.add(bezorgersScrollPane);
-        centerPanel.add(addBezorgerButton);
+        bezorgerScrollPanePanel.add(bezorgersScrollPane);
+
+        centerPanelPanel.add(bezorgerScrollPanePanel, BorderLayout.CENTER);
+        centerPanelPanel.add(flowPanel, BorderLayout.PAGE_END);
 
         //add components to pageendpanel
         pageEndPanel.add(backButton);
 
         //add components to bezorgermenupage
         this.add(menuTitleLabel, BorderLayout.PAGE_START);
-        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(centerPanelPanel, BorderLayout.CENTER);
         this.add(pageEndPanel, BorderLayout.PAGE_END);
     }
     private JPanel createBezorgerPanel(Bezorger bezorger){
         JPanel bezorgerPanel = new JPanel(new BorderLayout());
         JPanel bezorgerPanelLeftPanel = new JPanel(new FlowLayout());
         JPanel bezorgerPanelRightPanel = new JPanel(new FlowLayout());
-        JLabel bezorgerLabel = new JLabel("<html><span style='font-weight: normal'>Gebruikersnaam:</span> " + bezorger.name + "</html>");
+        JLabel bezorgerLabel = new JLabel("<html><span style='font-weight: normal;'>Gebruikersnaam:</span> " + bezorger.name + "</html>");
         JButton deleteButton = new JButton("Verwijderen");
         JButton passwordButton = new JButton("Wachtwoord bekijken");
         //jlabel won't turn transparent...
@@ -104,13 +114,17 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
             deleteButton.addActionListener(e -> {
 //in database nog een keer checken of de status niet veranderd is voor het verwijderen?
                 //doe iets op basis van status
-                JOptionPane.showConfirmDialog(applicationFrame, "Wil je bezorger " + bezorger.name + " zeker verwijderen?", "", JOptionPane.YES_NO_OPTION);
-                bezorgersScrollPane.remove(bezorgerPanel);
+                int result = JOptionPane.showConfirmDialog(applicationFrame, "<html><span style='font-weight: normal;'>Wil je bezorger</span> " + bezorger.name + "</u> <span style='font-weight: normal;'>zeker</span> <span style='color: red;'>verwijderen</span>?</html>?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(result == 0){
+                    applicationFrame.getDb().deleteBezorger(bezorger.id);
+                    refreshBezorgers();
+                }
+//                bezorgersScrollPane.remove(bezorgerPanel);
             });
         } else if (bezorger.status == 1) {
             deleteButton.setBackground(Color.gray);
             deleteButton.addActionListener(e -> {
-                JOptionPane.showMessageDialog(applicationFrame, "Deze bezorger is op dit moment aan het bezorgen. Probeer het later opnieuw.");
+                JOptionPane.showMessageDialog(applicationFrame, "Deze bezorger is op dit moment aan het bezorgen. Druk op de refresh-knop om de status van de bezorgers opnieuw op te halen.");
 
                 //bring up a dialogue: bezorger unavailable?
             });
@@ -134,6 +148,20 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         if(e.getSource() == addBezorgerButton){
             applicationFrame.showRegisterPage();
         }
+        if(e.getSource() == refreshButton){
+            refreshBezorgers();
+        }
+    }
+
+    public void refreshBezorgers(){
+        bezorgers = applicationFrame.getDb().getBezorgers();
+        bezorgersScrollPanePanel.removeAll();
+        for (int i = 0; i < bezorgers.size(); i++) {
+            JPanel bezorgerPanel = createBezorgerPanel(bezorgers.get(i));
+            bezorgersScrollPanePanel.add(bezorgerPanel);
+        }
+        bezorgersScrollPanePanel.revalidate();
+        bezorgersScrollPanePanel.repaint();
     }
 }
 

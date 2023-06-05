@@ -15,8 +15,9 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     JPanel leftPanel= new JPanel(new BorderLayout());
     JLabel menuTitleLabel;
     JScrollPane bezorgersScrollPane;
+    JPanel bezorgersScrollPanePanel = new JPanel();
     JPanel bezorgersScrollPanePanelPanel = new JPanel();
-    JButton backButton;
+    JButton backButton = new JButton("Terug");
     JLabel ordersPanelLabel = new JLabel(String.format("<html><body style=\"text-align: justify;  text-justify: inter-word;\">%s</body></html>", "Selecteer een beschikbare (groen) bezorger om bestellingen aan hem toe te wijzen. Selecteer een bezorgende (oranje) bezorger om zijn route te bekijken."));
     JScrollPane ordersPanel = new JScrollPane();
     Object[] bestellingenJTableColumns = {
@@ -42,7 +43,6 @@ public class RouteMenuPage extends JPanel implements ActionListener {
     public RouteMenuPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
-
         //make components, add listeners and constraints
         menuTitleLabel = new JLabel("Routes beheren");
         menuTitleLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -57,70 +57,68 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 //        routePanel.setBackground(Color.blue);
 
 
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setLayout(new GridLayout(0, 1));
 
         JPanel pageEndPanel = new JPanel();
         pageEndPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        JPanel bezorgersScrollPanePanel = new JPanel();
+
         bezorgersScrollPanePanel.setLayout(new GridLayout(0, 1));
         //Get available bezorgers. For every available bezorger, put a button for them into the scrollpane.
         updateBezorgers();
 //        int bezorgerButtonHeight = 10;
 //        int bezorgerButtonWidth = 0;
-        for (Bezorger bezorger:bezorgers) {
-            //assign the order to the relevant bezorger, preferably by id
-            //redraw the route menu page and display that bezorger's orders? use a method for this
-            JButton bezorgerButton = new JButton(bezorger.name);
-/*
-            bezorgersButtons.add(bezorgerButton);
-            JButton sillyButton = new JButton("filler");
-            JButton sillyButton2 = new JButton("filler");
-            JButton sillyButton3 = new JButton("filler");
-            JButton sillyButton4 = new JButton("filler");
-            bezorgersScrollPanePanel.add(sillyButton);
-            bezorgersScrollPanePanel.add(sillyButton2);
-            bezorgersScrollPanePanel.add(sillyButton3);
-            bezorgersScrollPanePanel.add(sillyButton4);*/
-            bezorgersScrollPanePanel.add(bezorgerButton);
-            if(bezorger.status == 0){
-                bezorgerButton.setBackground(Color.green);
-                bezorgerButton.addActionListener(e -> {
-                    int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.YES_NO_OPTION);
-                    System.out.println(result);
-                    if(result == 0){
-                        boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
-                        if(ordersAssigned == true){
-                            bezorgerButton.setBackground(Color.orange);
-                            updateBezorgerBestellingTable(bezorger.id);
-                            for (ActionListener actionListener:bezorgerButton.getActionListeners()) {
-                                bezorgerButton.removeActionListener(actionListener);
-                            }
-                            bezorgerButton.addActionListener(e2 ->{
-                                updateBezorgerBestellingTable(bezorger.id);
-                            });
-                        }
-                    }
-                    getBezorgerBestellingData(bezorger.id);
-                });
-            } else if (bezorger.status == 1) {
-                bezorgerButton.setBackground(Color.orange);
-                bezorgerButton.addActionListener(e -> {
-                    updateBezorgerBestellingTable(bezorger.id);
-                });
-            }
-//            bezorgerButtonHeight = bezorgerButton.getPreferredSize().height;
-//            bezorgerButtonWidth =  bezorgerButton.getPreferredSize().width;
-
-        }
+//        for (Bezorger bezorger:bezorgers) {
+//            //assign the order to the relevant bezorger, preferably by id
+//            //redraw the route menu page and display that bezorger's orders? use a method for this
+//            JButton bezorgerButton = new JButton(bezorger.name);
+///*
+//            bezorgersButtons.add(bezorgerButton);
+//            JButton sillyButton = new JButton("filler");
+//            JButton sillyButton2 = new JButton("filler");
+//            JButton sillyButton3 = new JButton("filler");
+//            JButton sillyButton4 = new JButton("filler");
+//            bezorgersScrollPanePanel.add(sillyButton);
+//            bezorgersScrollPanePanel.add(sillyButton2);
+//            bezorgersScrollPanePanel.add(sillyButton3);
+//            bezorgersScrollPanePanel.add(sillyButton4);*/
+//            bezorgersScrollPanePanel.add(bezorgerButton);
+//            if(bezorger.status == 0){
+//                bezorgerButton.setBackground(Color.green);
+//                bezorgerButton.addActionListener(e -> {
+//                    int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.YES_NO_OPTION);
+//                    System.out.println(result);
+//                    if(result == 0){
+//                        boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
+//                        if(ordersAssigned == true){
+//                            bezorgerButton.setBackground(Color.orange);
+//                            updateBezorgerBestellingTable(bezorger.id);
+//                            for (ActionListener actionListener:bezorgerButton.getActionListeners()) {
+//                                bezorgerButton.removeActionListener(actionListener);
+//                            }
+//                            bezorgerButton.addActionListener(e2 ->{
+//                                updateBezorgerBestellingTable(bezorger.id);
+//                            });
+//                        }
+//                    }
+//                    getBezorgerBestellingData(bezorger.id);
+//                });
+//            } else if (bezorger.status == 1) {
+//                bezorgerButton.setBackground(Color.orange);
+//                bezorgerButton.addActionListener(e -> {
+//                    updateBezorgerBestellingTable(bezorger.id);
+//                });
+//            }
+////            bezorgerButtonHeight = bezorgerButton.getPreferredSize().height;
+////            bezorgerButtonWidth =  bezorgerButton.getPreferredSize().width;
+//
+//        }
         bezorgersScrollPanePanelPanel.add(bezorgersScrollPanePanel, BorderLayout.PAGE_START);
         bezorgersScrollPane = new JScrollPane(bezorgersScrollPanePanelPanel);
         //bezorgersScrollPane.setPreferredSize(new Dimension(bezorgersScrollPanePanel.getPreferredSize().width, bezorgersScrollPane.getPreferredSize().height));
         bezorgersScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 //        bezorgersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-
-        backButton = new JButton("Terug");
         backButton.addActionListener(this);
 
         //add buttons to bezorgersscrollpane
@@ -151,9 +149,59 @@ public class RouteMenuPage extends JPanel implements ActionListener {
         this.add(pageEndPanel, BorderLayout.PAGE_END);
     }
 
-    private void updateBezorgers(){
+    public void updateBezorgers(){
         //bezorgers ophalen vanuit database die een status van beschikbaar hebben
         bezorgers = applicationFrame.getDb().getBezorgers();
+//        int bezorgerButtonHeight = 10;
+//        int bezorgerButtonWidth = 0;
+        bezorgersScrollPanePanel.removeAll();
+        for (Bezorger bezorger:bezorgers) {
+            //assign the order to the relevant bezorger, preferably by id
+            //redraw the route menu page and display that bezorger's orders? use a method for this
+            JButton bezorgerButton = new JButton(bezorger.name);
+/*
+            bezorgersButtons.add(bezorgerButton);
+            JButton sillyButton = new JButton("filler");
+            JButton sillyButton2 = new JButton("filler");
+            JButton sillyButton3 = new JButton("filler");
+            JButton sillyButton4 = new JButton("filler");
+            bezorgersScrollPanePanel.add(sillyButton);
+            bezorgersScrollPanePanel.add(sillyButton2);
+            bezorgersScrollPanePanel.add(sillyButton3);
+            bezorgersScrollPanePanel.add(sillyButton4);*/
+            bezorgersScrollPanePanel.add(bezorgerButton);
+            if(bezorger.status == 0){
+                bezorgerButton.setBackground(Color.green);
+                bezorgerButton.addActionListener(e -> {
+                    int result = JOptionPane.showConfirmDialog(this, "Route toewijzen aan " + bezorger.name + "?", "", JOptionPane.YES_NO_OPTION);
+                    if(result == 0){
+                        boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
+                        if(ordersAssigned == true){
+                            bezorgerButton.setBackground(Color.orange);
+                            updateBezorgerBestellingTable(bezorger.id);
+                            for (ActionListener actionListener:bezorgerButton.getActionListeners()) {
+                                bezorgerButton.removeActionListener(actionListener);
+                            }
+                            bezorgerButton.addActionListener(e2 ->{
+                                updateBezorgerBestellingTable(bezorger.id);
+                            });
+                        }
+                    }
+                    getBezorgerBestellingData(bezorger.id);
+                });
+            } else if (bezorger.status == 1) {
+                bezorgerButton.setBackground(Color.orange);
+                bezorgerButton.addActionListener(e -> {
+                    updateBezorgerBestellingTable(bezorger.id);
+                });
+            }
+//            bezorgerButtonHeight = bezorgerButton.getPreferredSize().height;
+//            bezorgerButtonWidth =  bezorgerButton.getPreferredSize().width;
+
+        }
+        bezorgersScrollPanePanel.revalidate();
+        bezorgersScrollPanePanel.repaint();
+
         //System.out.println(bezorgersArray);
 //        bezorgers.add(new Bezorger("Bezorger 1"));
 //        bezorgers.add(new Bezorger("Bezorger 1"));

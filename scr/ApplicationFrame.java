@@ -80,7 +80,6 @@ public class ApplicationFrame extends JFrame {
     public String getBezorgerId(){
         return this.bezorgerId;
     }
-
     public void setBestellingen(ArrayList<Bestelling> bestellingen) {
         this.bestellingen = bestellingen;
     }
@@ -92,5 +91,9 @@ public class ApplicationFrame extends JFrame {
     }
     public Database getDb(){
         return db;
+    }
+    public void refreshBezorgers(){
+        bezorgerMenuPage.refreshBezorgers();
+        routeMenuPage.updateBezorgers();
     }
 }

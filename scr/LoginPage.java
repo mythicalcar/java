@@ -13,12 +13,12 @@ public class LoginPage extends JPanel {
     Database db;
     JTextField userName = new JTextField();
     JPasswordField userPass = new JPasswordField();
-    JLabel userNameTxt = new JLabel("Naam:");
+    JLabel userNameTxt = new JLabel("Gebruikersaam:");
     JLabel userPassTxt = new JLabel("Wachtwoord:");
     JLabel errFlash = new JLabel("Verkeerde wachtwoord of gebruikersnaam, probeer opnieuw");
-    JButton login = new JButton("Login");
+    JButton login = new JButton("Log in");
     JPanel errFlashPanel = new JPanel(new BorderLayout());
-    private ApplicationFrame applicationFrame;
+    ApplicationFrame applicationFrame;
     JPanel centerPanel = new JPanel();
     public LoginPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
@@ -35,8 +35,6 @@ public class LoginPage extends JPanel {
                 applicationFrame.showBezorgerPage();
                 applicationFrame.setBezorgerId(applicationFrame.getDb().getBezorgerId(name));
                 applicationFrame.setBestellingen(applicationFrame.getDb().getBestellingenFromBezorger(applicationFrame.getBezorgerId()));
-                System.out.println(applicationFrame.getDb().getBestellingById(applicationFrame.getBestellingen().toString()));
-
             } else if (validation == 2) {
                 applicationFrame.setUserName(name);
                 applicationFrame.showManagerPage();

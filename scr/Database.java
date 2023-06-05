@@ -43,22 +43,39 @@ public class Database {
 
     public Boolean createAccount(String name, String password) {
         retrievable.put("Name", name);
+//        BasicDBObject retrievable = new BasicDBObject();
         bCursor = bezorgerCol.find(retrievable).iterator();
 
         if (bCursor.hasNext()) {
             return false;
         } else {
             String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
-            String randomPassword = RandomStringUtils.random(15, characters);
-            String hashedPass = BCrypt.hashpw(randomPassword, BCrypt.gensalt(10));
+//            String randomPassword = RandomStringUtils.random(15, characters);
+//            String hashedPass = BCrypt.hashpw(randomPassword, BCrypt.gensalt(10));
             Document document = new Document();
             document.append("Name", name);
-            document.append("Password", hashedPass);
-            document.append("Bestellingen", new ArrayList<Bestelling>());
+            document.append("Password", password);
+            document.append("Email", "");
+            document.append("Bestellingen", new BsonArray());// new ArrayList<Bestelling>());
+            document.append("Status", 0);
             bezorgerCol.insertOne(document);
             //System.out.println(randomPassword);
             return true;
         }
+    }
+
+    public Boolean deleteBezorger(String bezorgerId){
+        BasicDBObject retrievable = new BasicDBObject();
+        bCursor = bezorgerCol.find(retrievable).iterator();
+
+        while(bCursor.hasNext()){
+            Document bezorger = bCursor.next();
+            if(bezorger.get("_id").toString().equals(bezorgerId)){
+                bezorgerCol.deleteOne(bezorger);
+                System.out.println("bezorger deleted");
+            }
+        }
+        return false;
     }
 
     public int checkUserData(String name, String password) {
@@ -160,7 +177,8 @@ public class Database {
         }
     }
     public ArrayList<Bezorger> getBezorgers(){
-        ArrayList<Bezorger> bezorgers = new ArrayList<Bezorger>();
+        ArrayList<Bezorger> bezorgers = new ArrayList<>();
+        BasicDBObject retrievable = new BasicDBObject();
         bCursor = bezorgerCol.find(retrievable).iterator();
         while (bCursor.hasNext()) {
             Document user = bCursor.next();
