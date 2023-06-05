@@ -12,4 +12,8 @@ public class Bestelling {
     public String getPostcode() {
         return adress.getPostcode();
     }
+
+    public String toString(){
+        return "Bestelling[id=" + this.id + ", adress=" + this.adress + ", status=" + this.status + "]";
+    }
 }
