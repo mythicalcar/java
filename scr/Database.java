@@ -359,7 +359,7 @@ public class Database {
         }
         while(oCursor.hasNext()){
             Document bestelling = oCursor.next();
-            bezorgerCol.updateOne((Filters.eq("_id", bestelling.get("_id"))), Updates.set("Status", 0));
+            bestellingenCol.updateOne((Filters.eq("_id", bestelling.get("_id"))), Updates.set("Status", 0));
         }
     }
     //le method for updating bezorger status
