@@ -146,12 +146,12 @@ public class Database {
         //create getBestellingStatus method? it may be inefficient to sort orders you're not going to be assigning anyways
         //I think I just noticed that the orders are sorted by postcode after sorting by distance - shouldn't it be the other way round?
         bestellingen = Orders.sortBestellingenByPostcode(bestellingen);
-        int OrdersPerBezorger = 1;
+        int OrdersPerBezorger = 5;
         //make sure the bestelling has status 0
         Object[] bestellingArray = new Object[OrdersPerBezorger];
         //bestellingArray.add(1, b);
         if(bestellingen.isEmpty() == false) {
-            for (int i = 0; i < OrdersPerBezorger; i++) {
+            for (int i = 0; i < OrdersPerBezorger -1; i++) {
                 //System.out.println(bezorgerId);
 //                Document bezorger = getBezorgerId(bezorgerId);
 //                bestellingArray = bezorger.get("Bestellingen");
@@ -267,7 +267,7 @@ public class Database {
     }
 
     public ArrayList<Bestelling> getAvailableBestellingen(){
-        ArrayList<Bestelling> bestellingen = new ArrayList<Bestelling>();
+        ArrayList<Bestelling> bestellingen = new ArrayList<>();
         BasicDBObject retrievable = new BasicDBObject();
         oCursor = bestellingenCol.find(retrievable).iterator();
         while (oCursor.hasNext()) {
@@ -345,6 +345,22 @@ public class Database {
             }
         }
         return bestellingenData;
+    }
+
+    public void resetBestellingenAndBezorgers(){
+        BasicDBObject retrievable = new BasicDBObject();
+        bCursor = bezorgerCol.find(retrievable).iterator();
+        BasicDBObject retrievable2 = new BasicDBObject();
+        oCursor = bestellingenCol.find(retrievable2).iterator();
+        while(bCursor.hasNext()){
+            Document bezorger = bCursor.next();
+            bezorgerCol.updateOne((Filters.eq("_id", bezorger.get("_id"))), Updates.set("Status", 0));
+            bezorgerCol.updateOne((Filters.eq("_id", bezorger.get("_id"))), Updates.set("Bestellingen", new BsonArray()));
+        }
+        while(oCursor.hasNext()){
+            Document bestelling = oCursor.next();
+            bezorgerCol.updateOne((Filters.eq("_id", bestelling.get("_id"))), Updates.set("Status", 0));
+        }
     }
     //le method for updating bezorger status
 }
