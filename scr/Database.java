@@ -148,7 +148,7 @@ public class Database {
         //create getBestellingStatus method? it may be inefficient to sort orders you're not going to be assigning anyways
         //I think I just noticed that the orders are sorted by postcode after sorting by distance - shouldn't it be the other way round?
         bestellingen = Orders.sortBestellingenByPostcode(bestellingen);
-        int ordersPerBezorger = 4;
+        int ordersPerBezorger = 2;
         //make sure the bestelling has status 0
         int ordersToAssign = 0;
         for (int i = 0; i <= ordersPerBezorger; i++) {
