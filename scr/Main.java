@@ -25,7 +25,8 @@ public class Main {
 //
 //        System.out.println(eee);
         ApplicationFrame applicationFrame = new ApplicationFrame();
-        db.resetBestellingenAndBezorgers();
+        //uncomment the line below to commence the purge
+//        db.resetBestellingenAndBezorgers();
     }
 }
 

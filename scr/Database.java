@@ -2,6 +2,8 @@ package scr;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.annotations.JsonAdapter;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.*;
@@ -146,28 +148,41 @@ public class Database {
         //create getBestellingStatus method? it may be inefficient to sort orders you're not going to be assigning anyways
         //I think I just noticed that the orders are sorted by postcode after sorting by distance - shouldn't it be the other way round?
         bestellingen = Orders.sortBestellingenByPostcode(bestellingen);
-        int OrdersPerBezorger = 1;
+        int ordersPerBezorger = 4;
         //make sure the bestelling has status 0
-        Object[] bestellingArray = new Object[OrdersPerBezorger];
+        int ordersToAssign = 0;
+        for (int i = 0; i <= ordersPerBezorger; i++) {
+            if(i < bestellingen.size() + 1){
+                ordersToAssign = i;
+            }
+        }
+        System.out.println(ordersToAssign);
+        Object[] bestellingArray = new Object[ordersToAssign];
         //bestellingArray.add(1, b);
         if(bestellingen.isEmpty() == false) {
-            for (int i = 0; i < OrdersPerBezorger -1; i++) {
-                //System.out.println(bezorgerId);
+            for (int i = 0; i < ordersToAssign; i++) {
+                //i wish java had a clamp function
+//                if(i < bestellingen.size() -1){
+//                    System.out.println(bestellingen.get(i) + "yes");
+                    //System.out.println(bezorgerId);
 //                Document bezorger = getBezorgerId(bezorgerId);
 //                bestellingArray = bezorger.get("Bestellingen");
 //                BasicDBObject retrievable = new BasicDBObject();
 //                bestellingArray.add(bestellingArray)
-                bestellingArray[i] = bestellingen.get(i).id;
-                bestellingenCol.updateOne(Filters.eq("_id", new ObjectId(bestellingen.get(i).id)), Updates.set("Status", 1));
+                    bestellingArray[i] = bestellingen.get(i).id;
+//                    System.out.println(bestellingArray[i]);
+                    bestellingenCol.updateOne(Filters.eq("_id", new ObjectId(bestellingen.get(i).id)), Updates.set("Status", 1));
 //                bestellingArray.add(new BsonValue(bestellingen.get(i).id));
+//                }
             }
-
             String bestellingArrayJson = gson.toJson(bestellingArray);
+            System.out.println(bestellingen.toString());
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Status", 1));
 //            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
         }
         //we could do with some try catch statements, but we don't get paid enough for that
+        //maybe show a dialogue on the routemenupage if there are no orders to assign
         if(bestellingen.isEmpty()){
             return false;
         } else{
@@ -250,7 +265,7 @@ public class Database {
         oCursor = bestellingenCol.find(retrievable).iterator();
         while (oCursor.hasNext()) {
             Document bestelling = oCursor.next();
-//            System.out.println(bestelling.get("_id").toString() + " " + bestellingId);
+//            System.out.println(bestellingId);
             if(bestelling.get("_id").toString().equals(bestellingId)){
                 bestellingToReturn = new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status"));
             }
@@ -262,7 +277,7 @@ public class Database {
 //            int status = (int) bestelling.get("Status");
 //            bestellingen.add(new Bestelling(bestelling.get("_id").toString(), new Adress(bestelling.get("Plaats").toString(), bestelling.get("Straatnaam").toString(), bestelling.get("Huisnummer").toString(), bestelling.get("Postcode").toString()), (int) bestelling.get("Status")));
         };
-        System.out.println(bestellingToReturn.id);
+//        System.out.println(bestelling.id);
         return bestellingToReturn;
     }
 
@@ -295,10 +310,12 @@ public class Database {
         while(bCursor.hasNext()){
             Document bezorger = bCursor.next();
             if(bezorger.get("_id").toString().equals(bezorgerId)){
-                List bestellingenArray = Arrays.asList(bezorger.get("Bestellingen"));
-                for (Object bestelling:bestellingenArray) {
+                JsonElement bestellingenArray = gson.toJsonTree(bezorger.get("Bestellingen"));
+                for (Object bestelling:bestellingenArray.getAsJsonArray()) {
 //                    System.out.println(bestelling.toString());
-                    bestellingen.add(getBestellingById(bestelling.toString().replace("[", "").replace("]", "")));
+//                    if(bestelling != null){
+                        bestellingen.add(getBestellingById(bestelling.toString().replace("\"", "")));//.replace("\"", "")));
+//                    }
                 }
             }
         }
@@ -313,7 +330,7 @@ public class Database {
     public Object[][] getBestellingenDataTableManager(String bezorgerId){
         //int bestellingenSize = getBestellingen().size();
         ArrayList<Bestelling> bezorgerBestellingen = getBestellingenFromBezorger(bezorgerId);
-        int bestellingenDataSize = bezorgerBestellingen.size();
+        int bestellingenDataSize = bezorgerBestellingen.size();// -1;
         Object[][] bestellingenData = new Object[bestellingenDataSize][5];
         //int bestellingenDataCursor = 0;
 //        BasicDBObject retrievable = new BasicDBObject();

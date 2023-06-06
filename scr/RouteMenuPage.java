@@ -203,14 +203,19 @@ public class RouteMenuPage extends JPanel implements ActionListener {
                     if(result == 0){
                         boolean ordersAssigned = applicationFrame.getDb().assignOrders(bezorger.id);
                         if(ordersAssigned == true){
+                            //i am repeating myself more than i have to. i know i am violating the core principles of programming. i do not care.
                             bezorgerButton.setBackground(Color.orange);
+                            bezorgerNaam = bezorger.name;
                             updateBezorgerBestellingTable(bezorger.id);
                             for (ActionListener actionListener:bezorgerButton.getActionListeners()) {
                                 bezorgerButton.removeActionListener(actionListener);
                             }
                             bezorgerButton.addActionListener(e2 ->{
+                                bezorgerNaam = bezorger.name;
                                 updateBezorgerBestellingTable(bezorger.id);
                             });
+                        }else{
+                            JOptionPane.showMessageDialog(applicationFrame, "Er zijn momenteel geen bestellingen om toe te wijzen.");
                         }
                     }
                     getBezorgerBestellingData(bezorger.id);
