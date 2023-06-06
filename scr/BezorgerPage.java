@@ -1,5 +1,7 @@
 package scr;
 
+import org.intellij.lang.annotations.Flow;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -15,17 +17,19 @@ public class BezorgerPage extends JPanel {
     JButton laadRoutes = new JButton("Refresh routes");
     JButton klaar = new JButton("Klaar");
     JButton fout = new JButton("Fout");
-
+    JButton logOutButton = new JButton("Log out");
     String currentRoutePointer;
 
     MapsPage map = new MapsPage();
     ArrayList<Adress> route = new ArrayList<Adress>();
     Orders orders = new Orders();
     int i = 1;
-    private JLabel menuTitleLabel = new JLabel();
+    JPanel topPanel = new JPanel(new FlowLayout());
+    JLabel bezorgerLabel = new JLabel();
     private ApplicationFrame applicationFrame;
     BezorgerPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
+        setLayout(new BorderLayout());
         //db = applicationFrame.getDb();
         // google view for bezorgers
         googleMapView.setBackground(new Color(100, 100, 100));
@@ -38,6 +42,10 @@ public class BezorgerPage extends JPanel {
         openGoogleMaps.setVisible(false);
         klaar.setVisible(false);
         fout.setVisible(false);
+
+        //top panel with the bezorger name and a log out button displayed
+        topPanel.add(logOutButton);
+        add(topPanel, BorderLayout.PAGE_START);
 
         // orderlist for navigations
         orderList.setBackground(new Color(100, 100, 100));
@@ -114,5 +122,9 @@ public class BezorgerPage extends JPanel {
 
         this.add(googleMapViewWrapper);
         this.add(orderListWrapper);
+    }
+
+    public void updateName(String name){
+        bezorgerLabel.setText(name);
     }
 }

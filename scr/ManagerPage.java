@@ -14,6 +14,7 @@ public class ManagerPage extends JPanel implements ActionListener {
     JPanel gridBagPanel = new JPanel(new GridBagLayout());;
     JLabel welcomeLabel = new JLabel("Welkom " + "null" +"!");;
     JPanel pageEndPanel = new JPanel();
+
     public ManagerPage(ApplicationFrame applicationFrame){
         this.applicationFrame = applicationFrame;
         setLayout(new BorderLayout());
@@ -43,9 +44,13 @@ public class ManagerPage extends JPanel implements ActionListener {
         routeMenuButtonc.gridheight = 1;
         routeMenuButtonc.fill = GridBagConstraints.HORIZONTAL;
 
+        logOutButton.addActionListener(this);
+
+
         //add components to gridbagpanel
         gridBagPanel.add(bezorgerMenuButton, bezorgerMenuButtonc);
         gridBagPanel.add(routeMenuButton, routeMenuButtonc);
+        gridBagPanel.add(logOutButton, ApplicationFrame.createGBCWithInsets(00, 2, 2, 1, 0, 0, 0, 0, GridBagConstraints.HORIZONTAL, new Insets(20, 0, 0, 0)));
         //add components to applicationframe
         this.add(welcomeLabel, BorderLayout.PAGE_START);
         this.add(gridBagPanel, BorderLayout.CENTER);
@@ -59,6 +64,9 @@ public class ManagerPage extends JPanel implements ActionListener {
         }
         if(e.getSource() == routeMenuButton){
             applicationFrame.showRouteMenuPage();
+        }
+        if(e.getSource() == logOutButton){
+            applicationFrame.showLoginPage();
         }
     }
     public void updateName(String name){

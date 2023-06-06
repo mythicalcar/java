@@ -49,9 +49,13 @@ public class ApplicationFrame extends JFrame {
     }
     public void showBezorgerPage() {
         this.cardLayout.show(this.getContentPane(), "bezorgerPage");
+        bezorgerPage.updateName(userName);
     }
     public void showRegisterPage(){
         this.cardLayout.show(this.getContentPane(), "registerPage");
+    }
+    public void showLoginPage(){
+        this.cardLayout.show(this.getContentPane(), "loginPage");
     }
     public static GridBagConstraints createGBC(int gridx, int gridy, int gridwith, int gridheight, int ipadx, int ipady, float weightx, float weighty, int fill){
         GridBagConstraints constraints = new GridBagConstraints();
@@ -73,6 +77,9 @@ public class ApplicationFrame extends JFrame {
     }
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+    public String getUserName(){
+        return this.userName;
     }
     public void setBezorgerId(String id) {
         this.bezorgerId = id;
