@@ -156,7 +156,7 @@ public class Database {
                 ordersToAssign = i;
             }
         }
-        System.out.println(ordersToAssign);
+//        System.out.println(ordersToAssign);
         Object[] bestellingArray = new Object[ordersToAssign];
         //bestellingArray.add(1, b);
         if(bestellingen.isEmpty() == false) {
@@ -176,7 +176,7 @@ public class Database {
 //                }
             }
             String bestellingArrayJson = gson.toJson(bestellingArray);
-            System.out.println(bestellingen.toString());
+//            System.out.println(bestellingen.toString());
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));
             bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Status", 1));
 //            bezorgerCol.updateOne(Filters.eq("_id", new ObjectId(bezorgerId)), Updates.set("Bestellingen", BsonArray.parse(bestellingArrayJson)));

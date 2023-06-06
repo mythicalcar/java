@@ -214,6 +214,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
                                 bezorgerNaam = bezorger.name;
                                 updateBezorgerBestellingTable(bezorger.id);
                             });
+                            applicationFrame.refreshBezorgerMenuPage();
                         }else{
                             JOptionPane.showMessageDialog(applicationFrame, "Er zijn momenteel geen bestellingen om toe te wijzen.");
                         }
@@ -236,7 +237,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
 
         if(bezorgerNaam != ""){
             bezorgerNaam = "";
-            System.out.println("remove??");
+//            System.out.println("remove??");
             centerPanel.remove(bezorgerLabel);
             ordersPanel.remove(ordersTable);
         }
@@ -289,8 +290,7 @@ public class RouteMenuPage extends JPanel implements ActionListener {
             applicationFrame.showManagerPage();
         }
         if(e.getSource() == refreshButton){
-            refreshBezorgers();
-            applicationFrame.refreshBezorgerMenuPage();
+            applicationFrame.refreshBezorgerAndRouteMenuPage();
 //            applicationFrame.refreshBezorgerAndRouteMenuPage();
         }
     }

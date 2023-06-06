@@ -74,6 +74,7 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         addBezorgerButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
         backButton.addActionListener(this);
+        refreshButton.addActionListener(this);
 
         flowPanel.add(addBezorgerButton);
         flowPanel.add(refreshButton);
@@ -151,7 +152,6 @@ public class BezorgerMenuPage extends JPanel implements ActionListener {
         if(e.getSource() == refreshButton){
             refreshBezorgers();
             applicationFrame.refreshRouteMenuPage();
-//            applicationFrame.refreshBezorgerAndRouteMenuPage();
         }
     }
     public void refreshBezorgers(){

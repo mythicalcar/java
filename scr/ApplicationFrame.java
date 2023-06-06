@@ -99,9 +99,13 @@ public class ApplicationFrame extends JFrame {
         routeMenuPage.refreshBezorgers();
     }
     public void refreshBezorgerMenuPage(){
-        bezorgerMenuPage.refreshBezorgers();
+//        if(bezorgerMenuPage != null){
+            bezorgerMenuPage.refreshBezorgers();
+//        }
     }
     public void refreshRouteMenuPage(){
-        routeMenuPage.refreshBezorgers();
+//        if(routeMenuPage != null){
+            routeMenuPage.refreshBezorgers();
+//        }
     }
 }
