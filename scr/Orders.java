@@ -57,11 +57,11 @@ public class Orders {
         ArrayList<Adress> unvisitedAddresses = new ArrayList<>(adresses);
         unvisitedAddresses.remove(currentAddress);
 
-        while (!unvisitedAddresses.isEmpty()) {
+        while (!unvisitedAddresses.isEmpty()) {      // gaat hier door alle adressen tot alles is nagelopen
             Adress nearestAddress = null;
             double smallestDistance = Double.MAX_VALUE;
 
-            for (Adress address : unvisitedAddresses) {
+            for (Adress address : unvisitedAddresses) {   // kijkt welk adress het dichtste bij is
                 double distance = Distances.calculateDistance(currentAddress, address);
                 if (distance < smallestDistance) {
                     smallestDistance = distance;
@@ -73,7 +73,7 @@ public class Orders {
             currentAddress = nearestAddress;
             unvisitedAddresses.remove(nearestAddress);
         }
-        route.add(warehouse);
+        route.add(warehouse);  // voegt de warehouse toe als laaste adress
         return route;
     }
 

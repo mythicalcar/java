@@ -30,16 +30,16 @@ public class Distances {
 
             if (element.status == DistanceMatrixElementStatus.OK) {
                 int distanceInMeters = (int) element.distance.inMeters;
-                double distanceInKilometers = distanceInMeters / 1000.0;
+                double distanceInKilometers = distanceInMeters / 1000.0; // maakt de  in double voor km
 
                 return distanceInKilometers;
             } else {
                 System.out.println("Err Status: " + element.status);
-                return -1; // Return a negative value to indicate an error
+                return -1; // geeft een negatieve waarde als het fout gaat
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return -1; // Return a negative value to indicate an error
+            return -1; // geeft een negatieve waarde als het fout gaat
         }
     }
 
